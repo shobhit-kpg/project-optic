@@ -1,0 +1,127 @@
+/* ==========================================================================
+   LAYOUT — the page shell: nav, section rhythm, containers, footer.
+   Structural only. Section-specific composition lives in sections.css.
+   ========================================================================== */
+
+/* --- containers --------------------------------------------------------- */
+.wrap      { width: 100%; max-width: var(--w-page); margin-inline: auto; padding-inline: var(--s-gutter); }
+.wrap--wide{ max-width: var(--w-wide); }
+.prose     { max-width: var(--w-prose); }
+
+/* --- section rhythm ----------------------------------------------------- */
+.section { padding-block: var(--s-section); position: relative; }
+.section--tight { padding-block: calc(var(--s-section) * 0.55); }
+
+/* Alternating tint, so neighbouring sections separate without hard rules. */
+.section--tint { background: var(--c-surface); }
+
+.section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--s-4);
+  margin-bottom: var(--s-6);
+}
+.section__title { font-size: var(--t-3xl); }
+.section__lead  { color: var(--c-muted); font-size: var(--t-lg); max-width: var(--w-prose); margin-top: var(--s-3); }
+
+/* Small uppercase kicker above a heading. */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--f-display);
+  font-size: var(--t-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-accent-1);
+  margin-bottom: var(--s-3);
+}
+.kicker::before {
+  content: "";
+  width: 2rem; height: 2px;
+  background: currentColor;
+}
+
+/* --- nav ---------------------------------------------------------------- */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 50;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  justify-content: space-between;
+  padding-inline: var(--s-gutter);
+  transition: background var(--d-base), backdrop-filter var(--d-base), border-color var(--d-base);
+  border-bottom: 1px solid transparent;
+}
+/* .is-stuck is toggled by nav.js once the page scrolls past the hero lip. */
+.nav.is-stuck {
+  background: var(--c-veil);
+  backdrop-filter: blur(14px) saturate(1.3);
+  border-bottom-color: var(--c-line);
+}
+
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-family: var(--f-display);
+  font-weight: var(--fw-display);
+  font-size: var(--t-lg);
+  letter-spacing: var(--ls-tight);
+}
+.nav__mark { width: 2rem; height: 2rem; flex: none; }
+
+.nav__links { display: flex; align-items: center; gap: var(--s-5); }
+.nav__link {
+  position: relative;
+  font-weight: var(--fw-medium);
+  font-size: var(--t-sm);
+  color: var(--c-muted);
+  transition: color var(--d-fast);
+}
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 100%; bottom: -6px;
+  height: 2px;
+  background: var(--c-accent-2);
+  transition: right var(--d-base) var(--e-out);
+}
+.nav__link:hover, .nav__link[aria-current="true"] { color: var(--c-text); }
+.nav__link:hover::after, .nav__link[aria-current="true"]::after { right: 0; }
+
+@media (max-width: 760px) {
+  .nav__links { gap: var(--s-4); }
+  .nav__link  { font-size: var(--t-xs); }
+  .nav__link[data-optional] { display: none; }
+}
+
+/* --- footer ------------------------------------------------------------- */
+.footer {
+  border-top: var(--border);
+  padding-block: var(--s-6);
+  color: var(--c-muted);
+  font-size: var(--t-sm);
+}
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-4);
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* --- decorative background layer --------------------------------------- */
+#backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}

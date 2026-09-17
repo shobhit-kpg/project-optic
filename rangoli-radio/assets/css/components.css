@@ -1,0 +1,149 @@
+/* ==========================================================================
+   COMPONENTS — small reusable pieces, used by more than one section.
+   ========================================================================== */
+
+/* --- buttons ------------------------------------------------------------ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 0.85rem 1.7rem;
+  border-radius: var(--r-pill);
+  font-family: var(--f-display);
+  font-weight: var(--fw-bold);
+  font-size: var(--t-base);
+  line-height: 1;
+  white-space: nowrap;
+  transition: transform var(--d-fast) var(--e-out), background var(--d-fast), box-shadow var(--d-fast);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+.btn--primary { background: var(--c-accent-1); color: var(--c-on-accent); }
+.btn--accent  { background: var(--c-accent-3); color: var(--c-on-accent); }
+.btn--ghost   { border: 2px solid var(--c-line-strong); color: var(--c-text); }
+.btn--ghost:hover { border-color: var(--c-text); background: var(--c-surface); }
+
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--s-3); }
+
+/* --- chips -------------------------------------------------------------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 0.35rem 0.95rem;
+  border-radius: var(--r-pill);
+  border: var(--border);
+  background: var(--c-surface);
+  font-size: var(--t-sm);
+  font-weight: var(--fw-medium);
+  color: var(--c-muted);
+  transition: color var(--d-fast), background var(--d-fast), border-color var(--d-fast);
+}
+.chip-row { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+
+/* Filled variant. --accent is set per item by render.js, cycling the four
+   accent tokens, so a new palette recolours every chip for free. */
+.chip--solid {
+  background: var(--accent, var(--c-accent-1));
+  border-color: transparent;
+  color: var(--c-on-accent);
+  font-weight: var(--fw-bold);
+}
+
+/* Toggle variant, used by the setlist filter. */
+.chip--toggle { cursor: pointer; }
+.chip--toggle:hover { color: var(--c-text); border-color: var(--c-line-strong); }
+.chip--toggle[aria-pressed="true"] {
+  background: var(--c-text);
+  border-color: transparent;
+  color: var(--c-bg);
+  font-weight: var(--fw-bold);
+}
+
+/* --- card --------------------------------------------------------------- */
+.card {
+  position: relative;
+  padding: var(--s-5);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  border: var(--border);
+  overflow: hidden;
+}
+/* Coloured spine; --accent is assigned per card by render.js. */
+.card--spine::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--border-accent-w);
+  background: var(--accent, var(--c-accent-1));
+}
+.card--spine { padding-left: calc(var(--s-5) + var(--border-accent-w)); }
+
+.card--lift { transition: transform var(--d-base) var(--e-out), background var(--d-base); }
+.card--lift:hover { transform: translateY(-4px); background: var(--c-surface-2); }
+
+/* --- avatar ------------------------------------------------------------- */
+.avatar {
+  width: 4rem; height: 4rem;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--c-bg-2);
+  border: 2px solid var(--accent, var(--c-accent-1));
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+/* --- marquee ------------------------------------------------------------ */
+.marquee {
+  overflow: hidden;
+  border-block: var(--border);
+  background: var(--c-surface);
+  padding-block: var(--s-3);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  gap: var(--s-6);
+  animation: marquee var(--marquee-duration, 34s) linear infinite;
+}
+.marquee:hover .marquee__track { animation-play-state: paused; }
+.marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-6);
+  font-family: var(--f-display);
+  font-size: var(--t-xl);
+  font-weight: var(--fw-display);
+  letter-spacing: var(--ls-tight);
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+.marquee__item::after {
+  content: "";
+  width: 0.55rem; height: 0.55rem;
+  border-radius: 50%;
+  background: var(--accent, var(--c-accent-2));
+}
+@keyframes marquee { to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+
+/* --- empty state -------------------------------------------------------- */
+.empty {
+  display: grid;
+  place-items: center;
+  gap: var(--s-2);
+  padding: var(--s-6);
+  text-align: center;
+  border: 2px dashed var(--c-line-strong);
+  border-radius: var(--r-md);
+  color: var(--c-muted);
+  font-size: var(--t-sm);
+}

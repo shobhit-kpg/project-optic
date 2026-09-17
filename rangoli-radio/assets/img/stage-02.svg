@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" width="1600" height="1000" role="img" aria-label="Placeholder stage photo 2">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#1b2a6b"/><stop offset="1" stop-color="#0e1030"/>
+</linearGradient>
+<radialGradient id="spot" cx="50%" cy="34%" r="62%">
+<stop offset="0" stop-color="#19c3b3" stop-opacity=".55"/>
+<stop offset="1" stop-color="#19c3b3" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="rim" cx="18%" cy="72%" r="48%">
+<stop offset="0" stop-color="#7b5cff" stop-opacity=".40"/>
+<stop offset="1" stop-color="#7b5cff" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="1600" height="1000" fill="url(#sky)"/>
+<rect width="1600" height="1000" fill="url(#rim)"/>
+<polygon points="240,0 150,1000 390,1000" fill="#19c3b3" opacity="0.050"/><polygon points="520,0 430,1000 670,1000" fill="#19c3b3" opacity="0.065"/><polygon points="1080,0 990,1000 1230,1000" fill="#19c3b3" opacity="0.080"/><polygon points="1360,0 1270,1000 1510,1000" fill="#19c3b3" opacity="0.095"/>
+<rect width="1600" height="1000" fill="url(#spot)"/>
+<circle cx="1211" cy="385" r="9" fill="#7b5cff" opacity="0.30"/><circle cx="1287" cy="433" r="16" fill="#19c3b3" opacity="0.30"/><circle cx="512" cy="525" r="12" fill="#19c3b3" opacity="0.30"/><circle cx="290" cy="557" r="17" fill="#7b5cff" opacity="0.30"/><circle cx="852" cy="563" r="16" fill="#19c3b3" opacity="0.30"/><circle cx="793" cy="225" r="6" fill="#19c3b3" opacity="0.30"/><circle cx="984" cy="311" r="16" fill="#7b5cff" opacity="0.30"/><circle cx="1105" cy="219" r="9" fill="#19c3b3" opacity="0.30"/><circle cx="837" cy="502" r="7" fill="#19c3b3" opacity="0.30"/><circle cx="575" cy="640" r="10" fill="#7b5cff" opacity="0.30"/><circle cx="1411" cy="178" r="13" fill="#19c3b3" opacity="0.30"/><circle cx="1057" cy="217" r="13" fill="#19c3b3" opacity="0.30"/><circle cx="973" cy="199" r="9" fill="#7b5cff" opacity="0.30"/><circle cx="156" cy="575" r="14" fill="#19c3b3" opacity="0.30"/><circle cx="1450" cy="335" r="15" fill="#19c3b3" opacity="0.30"/><circle cx="603" cy="634" r="14" fill="#7b5cff" opacity="0.30"/><circle cx="861" cy="482" r="16" fill="#19c3b3" opacity="0.30"/><circle cx="1437" cy="561" r="5" fill="#19c3b3" opacity="0.30"/><circle cx="717" cy="429" r="14" fill="#7b5cff" opacity="0.30"/><circle cx="1047" cy="131" r="15" fill="#19c3b3" opacity="0.30"/><circle cx="1236" cy="442" r="6" fill="#19c3b3" opacity="0.30"/><circle cx="437" cy="634" r="16" fill="#7b5cff" opacity="0.30"/><circle cx="323" cy="73" r="5" fill="#19c3b3" opacity="0.30"/><circle cx="180" cy="468" r="17" fill="#19c3b3" opacity="0.30"/><circle cx="762" cy="423" r="5" fill="#7b5cff" opacity="0.30"/><circle cx="1474" cy="536" r="18" fill="#19c3b3" opacity="0.30"/>
+<ellipse cx="800" cy="870" rx="560" ry="80" fill="#19c3b3" opacity=".10"/>
+<g fill="#000" transform="translate(660 850) scale(1.0)"><circle cx="0" cy="-196" r="34"/><path d="M-46 -156 q46 -22 92 0 l20 116 q-66 20 -132 0 Z"/><path d="M-46 -150 l-40 96 8 8 48 -80 Z"/><path d="M46 -150 l40 96 -8 8 -48 -80 Z"/></g>
+<g fill="#000" transform="translate(980 850) scale(0.88)"><circle cx="0" cy="-196" r="34"/><path d="M-46 -156 q46 -22 92 0 l20 116 q-66 20 -132 0 Z"/><path d="M-46 -150 l-40 96 8 8 48 -80 Z"/><path d="M46 -150 l40 96 -8 8 -48 -80 Z"/></g>
+<circle cx="40" cy="960" r="46" fill="#000" opacity="0.55"/><circle cx="126" cy="974" r="53" fill="#000" opacity="0.55"/><circle cx="212" cy="988" r="60" fill="#000" opacity="0.55"/><circle cx="298" cy="960" r="67" fill="#000" opacity="0.55"/><circle cx="384" cy="974" r="46" fill="#000" opacity="0.55"/><circle cx="470" cy="988" r="53" fill="#000" opacity="0.55"/><circle cx="556" cy="960" r="60" fill="#000" opacity="0.55"/><circle cx="642" cy="974" r="67" fill="#000" opacity="0.55"/><circle cx="728" cy="988" r="46" fill="#000" opacity="0.55"/><circle cx="814" cy="960" r="53" fill="#000" opacity="0.55"/><circle cx="900" cy="974" r="60" fill="#000" opacity="0.55"/><circle cx="986" cy="988" r="67" fill="#000" opacity="0.55"/><circle cx="1072" cy="960" r="46" fill="#000" opacity="0.55"/><circle cx="1158" cy="974" r="53" fill="#000" opacity="0.55"/><circle cx="1244" cy="988" r="60" fill="#000" opacity="0.55"/><circle cx="1330" cy="960" r="67" fill="#000" opacity="0.55"/><circle cx="1416" cy="974" r="46" fill="#000" opacity="0.55"/><circle cx="1502" cy="988" r="53" fill="#000" opacity="0.55"/><circle cx="1588" cy="960" r="60" fill="#000" opacity="0.55"/>
+<text x="34" y="52" text-anchor="start" font-family="monospace" font-size="24" fill="#ffffff" opacity=".34">placeholder 02 · replace in content.js</text>
+</svg>
