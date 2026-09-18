@@ -202,10 +202,12 @@ export const site = {
   listen: {
     kicker: "Follow along",
     title: "Where else we live",
+    /* "" hides that link entirely, so an unfinished profile never ships as a
+       button that goes nowhere useful. */
     links: {
-      Instagram: "https://instagram.com/",
-      YouTube:   "https://youtube.com/",
-      Spotify:   "",                        // "" hides the link entirely
+      Instagram: "https://www.instagram.com/project_optic/",
+      YouTube:   "",                        // paste the channel URL when there is one
+      Spotify:   "",
     },
   },
 
