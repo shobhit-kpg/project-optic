@@ -8,12 +8,18 @@ A static page with no build step. Open `index.html` through any local server
 | I want to change…                    | Edit                                  |
 |--------------------------------------|---------------------------------------|
 | Band name, tagline, any text          | `assets/js/content.js`                |
-| Songs, videos, shows, socials, links  | `assets/js/content.js`                |
+| Repertoire, videos, shows, socials     | `assets/js/content.js`                |
 | Hero photos                           | `assets/img/` + `hero.slides` in `content.js` |
 | Colours, fonts, spacing, radii        | `assets/css/tokens.css`               |
 | The logo                              | `assets/img/logo*.png` + `brand` in `content.js` |
 | Which theme is active                 | `theme` in `content.js`               |
 | Section order                         | `index.html` + `SECTIONS` in `main.js`|
+
+The "What we play" section lists genres, a line on where each lands in an
+evening, and the artists behind it — deliberately not a fixed setlist. A
+running order commits the band to a night; this says they can read a room,
+which is what a venue is actually deciding. Edit `repertoire.genres` in
+`content.js`; each card's accent colour is assigned automatically.
 
 Everything visible on the page comes from `content.js`. No other file contains
 copy, and no file except `tokens.css` contains a colour.

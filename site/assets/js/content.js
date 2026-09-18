@@ -27,7 +27,7 @@ export const site = {
   /* --- nav: each entry points at a section id below -------------------- */
   nav: [
     { label: "About",   href: "#about" },
-    { label: "Setlist", href: "#setlist", optional: true },
+    { label: "What we play", href: "#repertoire", optional: true },
     { label: "Videos",  href: "#videos" },
     { label: "Shows",   href: "#shows",  optional: true },
     { label: "Book us", href: "#book" },
@@ -132,43 +132,54 @@ export const site = {
     ],
   },
 
-  /* --- setlist --------------------------------------------------------- */
-  setlist: {
+  /* --- what we play -----------------------------------------------------
+     Artists and feel rather than a fixed song list. A setlist commits you to
+     a running order; this says "we can read your room", which is the thing a
+     venue or an event planner is actually deciding.
+     --------------------------------------------------------------------- */
+  repertoire: {
     kicker: "What we play",
-    title: "The setlist",
-    lead: "The whole set, 26 songs. Filter by genre to see the shape of a night with us.",
-    /* Genres are assigned per song and drive both the filter chips and the
-       colour of each row. `initialCount` is how many show before the
-       "show everything" button; set it to 0 to always show the lot. */
-    initialCount: 12,
-    songs: [
-      { title: "Naina Da Kya Kasoor", genre: "Bollywood" },
-      { title: "With You", genre: "Punjabi Party" },
-      { title: "Watermelon Sugar", genre: "Pop" },
-      { title: "Ninnindale", genre: "Kannada" },
-      { title: "Jiyein Kyun", genre: "Hindi Indie" },
-      { title: "Jackie Jackie", genre: "Kannada" },
-      { title: "Badtameez Dil", genre: "Bollywood" },
-      { title: "A Sky Full of Stars", genre: "BritPop" },
-      { title: "Dil Chahta Hai", genre: "Bollywood" },
-      { title: "Socha Hai", genre: "Rock" },
-      { title: "Blinding Lights", genre: "Pop" },
-      { title: "I Want It That Way", genre: "Pop" },
-      { title: "Khali Quarter", genre: "Kannada" },
-      { title: "Kannada Mashup", genre: "Kannada" },  // medley: Ee Tanuvu Ninnade / Belageddu / Sakkatagavle / Bari Olu
-      { title: "Urvashi", genre: "Bollywood" },
-      { title: "Cold/Mess", genre: "Hindi Indie" },
-      { title: "Marz", genre: "Hindi Indie" },
-      { title: "Bandey", genre: "Rock" },
-      { title: "Zakir", genre: "Hindi Indie" },
-      { title: "Husn / Passenger", genre: "Hindi Indie" },
-      { title: "For a Reason", genre: "Pop" },
-      { title: "Pehli Baar", genre: "Bollywood" },
-      { title: "Yellow", genre: "BritPop" },
-      { title: "Saiyaara", genre: "Bollywood" },
-      { title: "Iraday", genre: "Hindi Indie" },
-      { title: "Khat", genre: "Hindi Indie" },
+    title: "The kind of night you're booking",
+    lead: "Seven directions we pull from, and roughly where each one lands in an evening. We build the set around the room, not the other way round.",
+    genres: [
+      {
+        name: "Punjabi Party",
+        vibe: "The last hour. Everyone is up, and nobody sits back down.",
+        artists: ["AP Dhillon", "Karan Aujla"],
+      },
+      {
+        name: "Bollywood",
+        vibe: "The songs the whole room already knows every word to.",
+        artists: ["A.R. Rahman", "Pritam", "Shankar–Ehsaan–Loy", "Amit Trivedi"],
+      },
+      {
+        name: "Hindi Indie",
+        vibe: "The quiet middle. Lights down, phones down.",
+        artists: ["Prateek Kuhad", "Anuv Jain", "Papon"],
+      },
+      {
+        name: "Rock",
+        vibe: "The loudest stretch of the night. Big guitars, bigger choruses.",
+        artists: ["Linkin Park", "Red Hot Chili Peppers", "Indian Ocean"],
+      },
+      {
+        name: "BritPop",
+        vibe: "Arms round shoulders, the whole room on the same line.",
+        artists: ["Coldplay"],
+      },
+      {
+        name: "Kannada",
+        vibe: "Home ground. Bangalore sings this one back at us.",
+        artists: ["Kannada film favourites", "Sandalwood classics"],
+      },
+      {
+        name: "Pop",
+        vibe: "Bright and familiar. Works anywhere in the evening.",
+        artists: ["The Weeknd", "Imagine Dragons", "Harry Styles", "Backstreet Boys", "Passenger"],
+      },
     ],
+    /* Shown under the cards. Keeps the door open without publishing a set. */
+    note: "Requests welcome — tell us the room and we will build the night around it.",
   },
 
   /* --- videos ---------------------------------------------------------- */

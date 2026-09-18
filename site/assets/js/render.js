@@ -191,83 +191,28 @@ export function renderAbout(mount, site) {
 
 /* --- setlist ------------------------------------------------------------ */
 
-export function renderSetlist(mount, site) {
-  const s = site.setlist;
-  if (!s?.songs?.length) return mount.remove();
+export function renderRepertoire(mount, site) {
+  const r = site.repertoire;
+  if (!r?.genres?.length) return mount.remove();
 
-  const genres = [...new Set(s.songs.map((song) => song.genre))];
-  const list  = el("div", { class: "setlist" });
-  const count = el("p", { class: "setlist__count", role: "status" });
-
-  const rows = s.songs.map((song, i) =>
-    el("article", {
-      class: "song",
-      style: { "--accent": accent(genres.indexOf(song.genre)) },
-      "data-genre": song.genre,
-    },
-      el("span", { class: "song__index", text: String(i + 1).padStart(2, "0"), "aria-hidden": "true" }),
-      el("div", {},
-        el("h3", { class: "song__title", text: song.title }),
-        /* `by` is optional: most rows are title and genre alone. */
-        song.by ? el("p", { class: "song__by", text: song.by }) : null,
-        song.note ? el("p", { class: "song__note", text: song.note }) : null,
-      ),
-      el("div", { class: "song__meta" },
-        el("span", { class: "chip", text: song.genre }),
-      ),
+  const cards = r.genres.map((g, i) =>
+    el("article", { class: "genre card card--spine card--lift", style: { "--accent": accent(i) } },
+      el("h3", { class: "genre__name", text: g.name }),
+      g.vibe ? el("p", { class: "genre__vibe", text: g.vibe }) : null,
+      g.artists?.length
+        ? el("ul", { class: "genre__artists" },
+            ...g.artists.map((a) => el("li", { class: "chip genre__artist", text: a })))
+        : null,
     )
   );
-  list.append(...rows);
-
-  /* --- genre filter --- */
-  let active = "All";
-  let expanded = !s.initialCount;
-
-  const chips = ["All", ...genres].map((label) =>
-    el("button", {
-      class: "chip chip--toggle",
-      type: "button",
-      text: label,
-      "aria-pressed": String(label === active),
-      onclick: () => { active = label; expanded = true; apply(); },
-    })
-  );
-
-  /* A full set is a long list. Show a slice until asked for the rest, so the
-     section does not push everything below it off the page. */
-  const more = el("button", {
-    class: "btn btn--ghost setlist__more",
-    type: "button",
-    onclick: () => { expanded = true; apply(); more.blur(); },
-  });
-
-  function apply() {
-    chips.forEach((c) => c.setAttribute("aria-pressed", String(c.textContent === active)));
-
-    const matching = rows.filter((row) => active === "All" || row.dataset.genre === active);
-    const limit = expanded ? matching.length : Math.min(s.initialCount, matching.length);
-
-    rows.forEach((row) => { row.hidden = true; });
-    matching.slice(0, limit).forEach((row) => { row.hidden = false; });
-
-    const hiddenCount = matching.length - limit;
-    more.hidden = hiddenCount <= 0;
-    more.textContent = `Show all ${matching.length} songs`;
-
-    count.textContent = active === "All"
-      ? `Showing ${limit} of ${s.songs.length} songs`
-      : `${matching.length} ${active} song${matching.length === 1 ? "" : "s"} of ${s.songs.length}`;
-  }
 
   mount.append(
     el("div", { class: "wrap" },
-      sectionHead(s),
-      el("div", { class: "chip-row setlist__filter", role: "group", "aria-label": "Filter songs by genre" }, ...chips),
-      list,
-      el("div", { class: "setlist__foot" }, more, count),
+      sectionHead(r),
+      el("div", { class: "genres" }, ...cards),
+      r.note ? el("p", { class: "genres__note", text: r.note }) : null,
     ),
   );
-  apply();
 }
 
 /* --- videos ------------------------------------------------------------- */

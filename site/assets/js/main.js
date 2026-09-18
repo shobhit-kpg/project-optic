@@ -20,7 +20,7 @@ const SECTIONS = [
   ["#top",     render.renderHero],
   ["#marquee", render.renderMarquee],
   ["#about",   render.renderAbout],
-  ["#setlist", render.renderSetlist],
+  ["#repertoire", render.renderRepertoire],
   ["#videos",  render.renderVideos],
   ["#shows",   render.renderShows],
   ["#listen",  render.renderListen],
