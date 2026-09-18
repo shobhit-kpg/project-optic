@@ -113,6 +113,11 @@
   /* --- brand ---------------------------------------------------------- */
   --logo-hero-w: clamp(9rem, 20vw, 15rem);
   --grain-opacity: 0.05;
+
+  /* --- the closing booking panel -------------------------------------- */
+  --book-surface: var(--c-bg-2);
+  --book-ink:     var(--c-text);
+  --book-wash:    38%;
 }
 
 /* ==========================================================================
@@ -135,6 +140,10 @@
   --c-muted:     #5b6180;
   --c-on-accent: #f4f2ec;
   --grain-opacity: 0.03;
+  /* A block of ink to close the page, rather than pastel over bone. */
+  --book-surface: #1c2244;
+  --book-ink:     #f4f2ec;
+  --book-wash:    26%;
 }
 
 /* Colder, more clinical: surveillance rather than stage. */

@@ -58,6 +58,10 @@
   padding-inline: var(--s-gutter);
   transition: background var(--d-base), backdrop-filter var(--d-base), border-color var(--d-base);
   border-bottom: 1px solid transparent;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--c-bg) 88%, transparent),
+    transparent);
 }
 /* .is-stuck is toggled by nav.js once the page scrolls past the hero lip. */
 .nav.is-stuck {

@@ -4,18 +4,70 @@
    ========================================================================== */
 
 /* ==========================================================================
-   1. HERO — full-bleed auto-scrolling photo carousel with the name over it
+   1. HERO — the brand beside a framed, self-scrolling strip of photos.
+
+   The photographs sit in their own frame rather than behind the words. An
+   overlay hero has to gamble that every photo is dark enough for the title
+   to survive on top of it; this one never does, which matters when the
+   photos are swapped for real ones and on the light themes, where navy ink
+   over a dark stage shot would disappear.
    ========================================================================== */
 .hero {
   position: relative;
-  min-height: var(--hero-min);
   display: grid;
-  isolation: isolate;
+  align-items: center;
+  padding-block: calc(var(--nav-h) + var(--s-7)) var(--s-8);
 }
-.hero > * { grid-area: 1 / 1; }
 
-/* --- the carousel itself ------------------------------------------------ */
-.carousel { position: relative; overflow: hidden; }
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.08fr;
+  gap: clamp(var(--s-5), 4vw, var(--s-7));
+  align-items: center;
+}
+
+/* --- the words ---------------------------------------------------------- */
+.hero__content {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-4);
+}
+
+/* Drop-shadow rather than box-shadow, so the glow follows the splatter's
+   silhouette instead of a rectangle. */
+.hero__mark {
+  width: var(--logo-hero-w);
+  height: auto;
+  margin-bottom: calc(var(--s-3) * -1);
+  filter: drop-shadow(0 10px 26px color-mix(in srgb, var(--c-text) 22%, transparent));
+}
+
+.hero__title {
+  font-size: var(--t-hero);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+}
+.hero__title span { display: block; }
+.hero__title span:nth-child(2) { color: var(--c-accent-1); }
+
+.hero__tagline {
+  font-family: var(--f-display);
+  font-weight: var(--fw-medium);
+  font-size: var(--t-xl);
+  max-width: 22ch;
+  color: var(--c-muted);
+}
+
+/* --- the frame ---------------------------------------------------------- */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: var(--slide-ratio);
+  border-radius: var(--r-lg);
+  border: var(--border);
+  background: var(--c-bg-2);
+  box-shadow: var(--shadow-md);
+}
 
 .carousel__track {
   display: flex;
@@ -30,122 +82,56 @@
 .slide {
   position: relative;
   flex: 0 0 100%;
+  height: 100%;
   scroll-snap-align: center;
   scroll-snap-stop: always;
 }
-.slide__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  /* Photos sit behind display type, so they are dimmed and desaturated a
-     little; remove this filter if your photos are already dark. */
-  filter: saturate(1.05) contrast(1.05);
-}
+.slide__img { width: 100%; height: 100%; object-fit: cover; }
 
-/* Legibility veil: darkens the photo towards the bottom where text sits. */
-.hero__veil {
-  pointer-events: none;
-  background:
-    linear-gradient(180deg,
-      color-mix(in srgb, var(--c-bg) 72%, transparent) 0%,
-      color-mix(in srgb, var(--c-bg) 18%, transparent) 32%,
-      color-mix(in srgb, var(--c-bg) 62%, transparent) 72%,
-      var(--c-bg) 100%),
-    radial-gradient(ellipse at 50% 42%,
-      transparent 30%,
-      color-mix(in srgb, var(--c-bg) 55%, transparent) 100%);
-}
-
-/* --- the words over the photos ------------------------------------------ */
-.hero__content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  align-content: center;
-  justify-items: start;
-  gap: var(--s-4);
-  width: 100%;
-  max-width: var(--w-wide);
-  margin-inline: auto;
-  padding: calc(var(--nav-h) + var(--s-7)) var(--s-gutter) calc(var(--s-8) + var(--s-6));
-  pointer-events: none;
-}
-.hero__content > * { pointer-events: auto; }
-
-/* The lens mark, floated above the name. Drop-shadow rather than box-shadow
-   so the glow follows the splatter's silhouette, not a rectangle. */
-.hero__mark {
-  width: var(--logo-hero-w);
-  height: auto;
-  margin-bottom: calc(var(--s-3) * -1);
-  filter: drop-shadow(0 8px 30px color-mix(in srgb, var(--c-bg) 90%, transparent));
-}
-
-.hero__title {
-  font-size: var(--t-hero);
-  line-height: var(--lh-tight);
-  text-transform: uppercase;
-  text-shadow: 0 6px 50px var(--c-bg), 0 1px 3px color-mix(in srgb, var(--c-bg) 80%, transparent);
-}
-.hero__title span { display: block; }
-.hero__title span:nth-child(2) { color: var(--c-accent-1); }
-
-.hero__tagline {
-  font-family: var(--f-display);
-  font-weight: var(--fw-medium);
-  font-size: var(--t-xl);
-  max-width: 24ch;
-  text-shadow: 0 2px 22px var(--c-bg);
-}
-
-/* --- controls ----------------------------------------------------------- */
-.carousel__ui {
-  position: absolute;
-  z-index: 3;
-  left: 0; right: 0; bottom: var(--s-5);
+/* --- caption and controls, under the frame ------------------------------ */
+.carousel__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-4);
-  max-width: var(--w-wide);
-  margin-inline: auto;
-  padding-inline: var(--s-gutter);
+  margin-top: var(--s-3);
 }
-
 .carousel__caption {
   font-size: var(--t-sm);
   color: var(--c-muted);
-  text-shadow: 0 1px 10px var(--c-bg);
   min-height: 1.5em;
 }
-
 .carousel__nav { display: flex; align-items: center; gap: var(--s-3); }
 
 .carousel__btn {
-  width: 2.75rem; height: 2.75rem;
+  width: 2.4rem; height: 2.4rem;
   display: grid;
   place-items: center;
   border-radius: 50%;
   border: var(--border);
-  background: var(--c-veil);
-  backdrop-filter: blur(8px);
+  background: var(--c-surface);
   transition: background var(--d-fast), border-color var(--d-fast), transform var(--d-fast);
 }
-.carousel__btn:hover { background: var(--c-surface-2); border-color: var(--c-text); transform: scale(1.06); }
-.carousel__btn svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 2.4; }
+.carousel__btn:hover { background: var(--c-surface-2); border-color: var(--c-line-strong); transform: scale(1.06); }
+.carousel__btn svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2.4; }
 
 .carousel__dots { display: flex; gap: var(--s-2); }
 .carousel__dot {
-  width: 2rem; height: 4px;
+  width: 1.8rem; height: 3px;
   border-radius: var(--r-pill);
   background: var(--c-line-strong);
   transition: background var(--d-base);
 }
 .carousel__dot[aria-current="true"] { background: var(--c-accent-1); }
 
-@media (max-width: 680px) {
-  .carousel__ui { flex-direction: column; align-items: flex-start; }
-  .carousel__caption { order: 2; }
+@media (max-width: 900px) {
+  .hero { padding-block: calc(var(--nav-h) + var(--s-5)) var(--s-7); }
+  .hero__grid { grid-template-columns: 1fr; gap: var(--s-6); }
+  .hero__content { justify-items: start; }
+}
+
+@media (max-width: 560px) {
+  .carousel__bar { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
 }
 
 /* ==========================================================================
@@ -321,14 +307,20 @@
   gap: var(--s-4);
   padding: clamp(3rem, 8vw, 5.5rem) var(--s-5);
   border-radius: var(--r-xl);
+  color: var(--book-ink);
   background:
-    radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--c-accent-1) 38%, transparent), transparent 55%),
-    radial-gradient(circle at 82% 78%, color-mix(in srgb, var(--c-accent-4) 45%, transparent), transparent 55%),
-    radial-gradient(circle at 78% 12%, color-mix(in srgb, var(--c-accent-2) 30%, transparent), transparent 50%),
-    var(--c-bg-2);
+    radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--c-accent-1) var(--book-wash), transparent), transparent 55%),
+    radial-gradient(circle at 82% 78%, color-mix(in srgb, var(--c-accent-4) var(--book-wash), transparent), transparent 55%),
+    radial-gradient(circle at 78% 12%, color-mix(in srgb, var(--c-accent-2) var(--book-wash), transparent), transparent 50%),
+    var(--book-surface);
   border: var(--border);
 }
-.book__lead { max-width: 46ch; color: var(--c-text); }
+.book__lead { max-width: 46ch; color: var(--book-ink); opacity: 0.92; }
+
+/* Inside the panel the secondary button has to answer --book-surface, not the
+   page background, or on the paper theme it would be ink sitting on ink. */
+.book .btn--accent { background: var(--book-ink); color: var(--book-surface); }
+.book .btn--ghost  { border-color: color-mix(in srgb, var(--book-ink) 45%, transparent); color: var(--book-ink); }
 
 /* ==========================================================================
    Scroll-in reveal. Added by reveal.js; harmless if the script never runs,

@@ -9,17 +9,18 @@
 
 export const site = {
   /* --- identity -------------------------------------------------------- */
-  theme: "",                       // "" = :root. Also "paper", "scope", "rangoli"
+  theme: "paper",                  // "" = :root (dark). Also "paper", "scope", "rangoli"
   brand: {
     name: "Project Optic",
     nameLines: ["Project", "Optic"],   // how the name stacks in the hero
     tagline: "Songs in English, हिंदी and ಕನ್ನಡ, from Bangalore",
     city: "Bangalore",
     baseUrl: "https://project-optic.netlify.app/",
-    /* Two cuts of the logo. Use the -light pair on dark themes and the plain
-       pair on the "paper" theme, where the original navy ink is at home. */
-    mark: "assets/img/logo-mark-light.png",   // lens only, for the nav + hero
-    logo: "assets/img/logo-light.png",        // full lockup, currently unused
+    /* The logo exactly as drawn: navy ink, red lens, nothing recoloured.
+       On the dark themes swap both to the -light cuts, which are tonally
+       inverted so the artwork stays visible against near-black. */
+    mark: "assets/img/logo-mark.png",         // lens only, for the nav + hero
+    logo: "assets/img/logo.png",              // full lockup, currently unused
   },
 
   /* --- nav: each entry points at a section id below -------------------- */

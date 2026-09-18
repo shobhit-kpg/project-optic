@@ -74,7 +74,9 @@ export function renderHero(mount, site) {
     ),
   );
 
-  const ui = el("div", { class: "carousel__ui" },
+  /* Caption and controls sit under the frame rather than on top of it, so
+     they never depend on how light or dark a given photograph happens to be. */
+  const bar = el("div", { class: "carousel__bar" },
     el("p", { class: "carousel__caption", "data-carousel-caption": true, "aria-live": "off" }),
     el("div", { class: "carousel__nav" },
       el("button", { class: "carousel__btn", type: "button", "data-carousel-prev": true, "aria-label": "Previous photo" },
@@ -86,23 +88,28 @@ export function renderHero(mount, site) {
   );
 
   mount.append(
-    el("div", { class: "carousel", "data-carousel": true }, track, ui),
-    el("div", { class: "hero__veil", "aria-hidden": "true" }),
-    el("div", { class: "hero__content" },
-      site.brand.mark
-        ? el("img", {
-            class: "hero__mark",
-            src: site.brand.mark,
-            alt: "",
-            loading: "eager",
-            fetchpriority: "high",
-          })
-        : null,
-      el("h1", { class: "hero__title" },
-        ...site.brand.nameLines.map((line) => el("span", { text: line })),
+    el("div", { class: "wrap wrap--wide hero__grid" },
+      el("div", { class: "hero__content" },
+        site.brand.mark
+          ? el("img", {
+              class: "hero__mark",
+              src: site.brand.mark,
+              alt: "",
+              loading: "eager",
+              fetchpriority: "high",
+            })
+          : null,
+        el("h1", { class: "hero__title" },
+          ...site.brand.nameLines.map((line) => el("span", { text: line })),
+        ),
+        el("p", { class: "hero__tagline", text: site.brand.tagline }),
+        el("div", { class: "btn-row" }, ...ctas.map(button)),
       ),
-      el("p", { class: "hero__tagline", text: site.brand.tagline }),
-      el("div", { class: "btn-row" }, ...ctas.map(button)),
+      /* data-carousel wraps frame + bar so carousel.js finds all its parts. */
+      el("div", { class: "hero__media", "data-carousel": true },
+        el("div", { class: "carousel" }, track),
+        bar,
+      ),
     ),
   );
 }

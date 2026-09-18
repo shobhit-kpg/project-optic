@@ -44,16 +44,17 @@ assets/img/             hero photos (currently generated placeholders)
 The default palette is taken from the logo: ink navy `#1c2244`, signal red
 `#f04e41`, paper steel `#e5ebf2`. `tokens.css` also ships:
 
-| `theme:`   | Looks like                                            |
-|------------|-------------------------------------------------------|
-| `""`       | Default. Near-black navy, bone type, red lens accent.  |
-| `"paper"`  | The logo's native habitat: navy ink on bone. Gig-poster. |
-| `"scope"`  | Cold green/cyan. Surveillance rather than stage.        |
-| `"rangoli"`| The previous festive palette, kept one word away.       |
+| `theme:`    | Looks like                                             | Use these logo cuts |
+|-------------|--------------------------------------------------------|---------------------|
+| `"paper"`   | **Current.** Navy ink on bone — the logo's own colours. | `logo-mark.png`, `logo.png` |
+| `""`        | Near-black navy, bone type, red lens accent.            | `logo-mark-light.png`, `logo-light.png` |
+| `"scope"`   | Cold green/cyan. Surveillance rather than stage.        | `logo-mark-light.png`, `logo-light.png` |
+| `"rangoli"` | The earlier festive palette, kept one word away.        | `logo-mark-light.png`, `logo-light.png` |
 
-Switching to `"paper"` — set `theme: "paper"` in `content.js` — also wants
-`brand.mark: "assets/img/logo-mark.png"` and `brand.logo: "assets/img/logo.png"`
-(the dark-ink cuts), since the `-light` cuts are made for dark backgrounds.
+**Changing theme means changing the logo cut too.** The artwork is navy ink, so
+it only shows up on a light background; the `-light` files are tonally inverted
+for the dark themes. Set both `theme` and `brand.mark` / `brand.logo` together
+in `content.js`, or the logo will vanish into the background.
 
 To add a palette, copy a `[data-theme="…"]` block and restate only what
 differs — everything else inherits from `:root`. A theme can also change
@@ -72,6 +73,10 @@ a screen reader.
 
 ## Notes
 
+- The hero is a split layout: brand on one side, photos in their own frame on
+  the other. The photos deliberately do not sit behind the title — an overlay
+  hero has to gamble that every photo is dark enough for the words on top of
+  it, and that gamble breaks on the light themes and on bright photos.
 - The carousel auto-advances every `hero.autoplayMs` ms and pauses on hover,
   on keyboard focus, while dragging, when the tab is hidden, and for visitors
   who have asked for reduced motion. Set it to `0` to disable.
