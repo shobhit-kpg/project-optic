@@ -45,6 +45,12 @@ export function renderNav(mount, site) {
   );
 }
 
+/* How wide each source actually renders, which is not the viewport width.
+   With `object-fit: cover`, a slot taller than the photo scales the photo by
+   height, so it is drawn wider than the screen and the overflow is clipped. */
+const PORTRAIT_SIZES = "130vw";
+const LANDSCAPE_SIZES = "(max-width: 1100px) 170vw, 100vw";
+
 /* --- hero --------------------------------------------------------------- */
 
 export function renderHero(mount, site) {
@@ -64,21 +70,35 @@ export function renderHero(mount, site) {
   },
     ...slides.map((s, i) =>
       el("figure", { class: "slide", "data-caption": s.caption || "" },
-        el("img", {
-          class: "slide__img",
-          src: s.src,
-          srcset: s.srcset || null,
-          /* The hero is full-bleed, so the rendered width is the viewport. */
-          sizes: s.srcset ? "100vw" : null,
-          alt: s.alt || "",
-          /* First slide is the LCP image: fetch it eagerly and early; the
-             rest can wait until they are scrolled towards. */
-          loading: i === 0 ? "eager" : "lazy",
-          fetchpriority: i === 0 ? "high" : "low",
-          decoding: "async",
-          /* Which part of the frame to keep when it is cropped to fit. */
-          style: s.focus ? { objectPosition: s.focus } : null,
-        }),
+        el("picture", {},
+          /* Phones get the 9:16 recrop. Their hero slot is far taller than a
+             landscape frame, so a wide photo would be scaled up by height and
+             cropped to a sliver. Art direction, not just resolution. */
+          s.portrait
+            ? el("source", {
+                media: "(max-width: 760px)",
+                srcset: s.portrait,
+                sizes: PORTRAIT_SIZES,
+              })
+            : null,
+          el("img", {
+            class: "slide__img",
+            src: s.src,
+            srcset: s.srcset || null,
+            /* `cover` in a slot taller than the photo renders it WIDER than
+               the viewport, so 100vw would under-request and the browser
+               would pick a file too small. Hence the multipliers. */
+            sizes: s.srcset ? LANDSCAPE_SIZES : null,
+            alt: s.alt || "",
+            /* First slide is the LCP image: fetch it eagerly and early; the
+               rest can wait until they are scrolled towards. */
+            loading: i === 0 ? "eager" : "lazy",
+            fetchpriority: i === 0 ? "high" : "low",
+            decoding: "async",
+            /* Which part of the frame to keep when it is cropped to fit. */
+            style: s.focus ? { objectPosition: s.focus } : null,
+          }),
+        ),
       )
     ),
   );

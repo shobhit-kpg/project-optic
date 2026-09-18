@@ -44,9 +44,22 @@ export const site = {
        reconciling once there are no colours left to clash, and the brand's
        red is then the only colour on the page.
 
-       `srcset` lets the browser pick a size: phones pull the 1400px file,
-       laptops the 2400px one. `focus` is the object-position, i.e. the part
-       of the frame to protect when it gets cropped to the viewport — the
+       Halftone dot screens, not photographs: see tools/grade-photos.py.
+       PNG rather than JPEG because a dot screen is nearly two-tone, so a
+       four-colour palette compresses it about four times harder and without
+       the ringing JPEG leaves around every dot.
+
+       Two crops of each shot, not one. `srcset` is the landscape set for
+       wide screens; `portrait` is a 9:16 recrop served to phones.
+
+       A phone's hero slot is about 0.46 wide-to-tall. Feeding it a 3:2
+       landscape means `object-fit: cover` scales the photo by height —
+       blowing it up roughly 3.5x and showing about a quarter of its width.
+       That is both soft and badly framed, and no file size fixes it: the
+       shape is wrong. The portrait crop matches the slot, so it is sharp at
+       a smaller file and you see the whole subject.
+
+       `focus` is the object-position for whatever cropping is left over. The
        band name sits over the left, so keep faces off it.
 
        CAPTIONS ARE DESCRIPTIVE, NOT FACTUAL. Only live-05 names a venue,
@@ -54,36 +67,41 @@ export const site = {
        dates in before anyone reads this. */
     slides: [
       {
-        src: "assets/img/live-01-2400.jpg",
-        srcset: "assets/img/live-01-1400.jpg 1400w, assets/img/live-01-2400.jpg 2400w, assets/img/live-01-3200.jpg 3200w",
+        src: "assets/img/live-01-2400.png",
+        srcset: "assets/img/live-01-1400.png 1400w, assets/img/live-01-2400.png 2400w, assets/img/live-01-3200.png 3200w",
+        portrait: "assets/img/live-01-p1100.png 1100w, assets/img/live-01-p1500.png 1500w",
         alt: "Three of the band in silhouette against blue stage haze",
         caption: "Backlit and in the smoke",
         focus: "62% 45%",
       },
       {
-        src: "assets/img/live-02-2400.jpg",
-        srcset: "assets/img/live-02-1400.jpg 1400w, assets/img/live-02-2400.jpg 2400w, assets/img/live-02-3200.jpg 3200w",
+        src: "assets/img/live-02-2400.png",
+        srcset: "assets/img/live-02-1400.png 1400w, assets/img/live-02-2400.png 2400w, assets/img/live-02-3200.png 3200w",
+        portrait: "assets/img/live-02-p1100.png 1100w, assets/img/live-02-p1500.png 1500w",
         alt: "Two singers at their mics, lit from behind",
         caption: "Two mics, one spotlight",
         focus: "50% 45%",
       },
       {
-        src: "assets/img/live-03-2400.jpg",
-        srcset: "assets/img/live-03-1400.jpg 1400w, assets/img/live-03-2400.jpg 2400w, assets/img/live-03-3200.jpg 3200w",
+        src: "assets/img/live-03-2400.png",
+        srcset: "assets/img/live-03-1400.png 1400w, assets/img/live-03-2400.png 2400w, assets/img/live-03-3200.png 3200w",
+        portrait: "assets/img/live-03-p1100.png 1100w, assets/img/live-03-p1500.png 1500w",
         alt: "The crowd with their hands in the air, lit from the stage",
         caption: "The room, giving it back",
         focus: "52% 50%",
       },
       {
-        src: "assets/img/live-04-2400.jpg",
-        srcset: "assets/img/live-04-1400.jpg 1400w, assets/img/live-04-2400.jpg 2400w, assets/img/live-04-3200.jpg 3200w",
+        src: "assets/img/live-04-2400.png",
+        srcset: "assets/img/live-04-1400.png 1400w, assets/img/live-04-2400.png 2400w, assets/img/live-04-3200.png 3200w",
+        portrait: "assets/img/live-04-p1100.png 1100w, assets/img/live-04-p1500.png 1500w",
         alt: "The full band mid-song, bass and guitar in front, drums behind",
         caption: "Full band, full volume",
         focus: "55% 48%",
       },
       {
-        src: "assets/img/live-05-1600.jpg",
-        srcset: "assets/img/live-05-1400.jpg 1400w, assets/img/live-05-1600.jpg 1600w",
+        src: "assets/img/live-05-1600.png",
+        srcset: "assets/img/live-05-1400.png 1400w, assets/img/live-05-1600.png 1600w",
+        portrait: "assets/img/live-05-p677.png 677w",
         alt: "The five-piece on stage at Hard Rock Cafe",
         caption: "Hard Rock Cafe",
         focus: "55% 45%",

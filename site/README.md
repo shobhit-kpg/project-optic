@@ -71,18 +71,33 @@ page without touching any component.
 originals. Each exists at several widths and the page picks one via `srcset`:
 a phone pulls the 1400px file, a retina laptop the 3200px one.
 
-**The grade** is high-contrast black and white — the classic language of gig
-photography, and what silhouettes against stage lights are made for. It solves
-the problem the colour grades kept failing at: five nights under blue, purple,
-red, yellow and magenta lighting need no reconciling once there are no colours
-left to clash. It also leaves the brand's signal red as the only colour
-anywhere on the page.
+**The grade** is a high-contrast black and white **halftone** — a printed dot
+screen, the same ink language as the logo. Three things fall out of that:
 
-Two colour grades were tried and dropped first. One desaturated everything
-toward the palette and ran `autocontrast` over it, which *lifts* the black
-point — a deep blue room came out milky grey. The other crushed the blacks and
-pushed saturation hard, which kept the drama but stayed garish. Worth knowing
-before reaching for either again.
+1. Five nights under blue, purple, red, yellow and magenta lighting need no
+   reconciling, because there are no colours left to clash.
+2. The brand's signal red becomes the only colour anywhere on the page.
+3. Source resolution stops mattering much. A dot screen has no fine detail to
+   lose, which is why the low-resolution Hard Rock shot now sits happily
+   beside four 24-megapixel ones.
+
+Two colour grades were tried and dropped before this. One desaturated toward
+the palette and ran `autocontrast`, which *lifts* the black point — a deep
+blue room came out milky grey. The other crushed blacks and pushed saturation,
+which kept the drama but stayed garish.
+
+Three things about the halftone are load-bearing:
+
+- **The screen is applied after each resize, never before.** A halftone baked
+  at one size and then scaled by the browser turns to mush, so every output
+  gets its own pass at its own pixel grid.
+- **The files are PNG, not JPEG.** A dot screen is nearly two-tone, so a
+  four-colour palette compresses it about four times harder — 132KB for a
+  3200px frame against 1218KB as JPEG — and with none of the ringing JPEG
+  leaves around every hard dot edge.
+- **The hero does not animate the photos.** A slow scale over a regular dot
+  grid crawls and shimmers as the pattern beats against the pixel grid. A dot
+  screen wants to sit still, like print.
 
 ### Adding a photo
 
@@ -130,9 +145,11 @@ Three tokens in `tokens.css` grade every photo at once:
 | `--grade-strength` | A whisper of the palette over the greys, tying them to the page. `0` = pure neutral black and white. |
 | `--drift-duration` | Speed of the slow zoom. Longer is calmer.                |
 
-The grade itself lives in `tools/grade-photos.py` as four constants
-(`BLACK_POINT`, `GAMMA`, `CONTRAST`, `VIGNETTE`). Change them and re-run the
-script over the originals to restyle the whole set.
+The look lives in `tools/grade-photos.py` as constants: `BLACK_POINT`,
+`GAMMA`, `CONTRAST` and `VIGNETTE` for the tone, then `CELL` for the dot pitch
+and `SOFTNESS` for how hard the dot edges are. `CELL` is the one to reach for:
+bigger is chunkier and more poster-like, smaller approaches plain monochrome.
+Change them and re-run the script over the originals to restyle the whole set.
 
 ## Themes
 

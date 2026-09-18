@@ -10,7 +10,7 @@
    Three stacked layers make that safe to do with real gig photos, which are
    dark, mixed in quality and shot on whatever was to hand:
 
-     .carousel     the photographs, slowly drifting
+     .carousel     the photographs, as halftone dot screens
      .hero__grade  a soft-light wash that pulls every frame towards the
                    palette, so a warm phone shot and a cold one still look
                    like the same band
@@ -58,24 +58,17 @@
   scroll-snap-stop: always;
 }
 
+/* <picture> is an inline wrapper by default and would not fill the slide. */
+.slide picture { display: block; width: 100%; height: 100%; }
+
 .slide__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   filter: var(--photo-filter);
-  /* A slow drift, so a still photograph still feels like a room with people
-     in it. The scale floor also hides soft edges on a low-resolution frame. */
-  animation: drift var(--drift-duration) ease-in-out infinite alternate;
-  will-change: transform;
-}
-@keyframes drift {
-  from { transform: scale(1.04) translate3d(0, 0, 0); }
-  to   { transform: scale(1.13) translate3d(-1.5%, -1.2%, 0); }
-}
-.slide:nth-child(even) .slide__img { animation-direction: alternate-reverse; }
-
-@media (prefers-reduced-motion: reduce) {
-  .slide__img { animation: none; transform: scale(1.04); }
+  /* No drift. The photos are halftone dot screens, and a regular dot grid
+     under a slow continuous scale crawls and shimmers — the pattern beats
+     against the pixel grid. A dot screen wants to sit still, like print. */
 }
 
 /* --- the grade ---------------------------------------------------------- */

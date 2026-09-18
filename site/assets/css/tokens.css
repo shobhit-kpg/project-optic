@@ -122,16 +122,14 @@
   /* --- photography ----------------------------------------------------- */
   /* Gig photos arrive dark, noisy and inconsistent. These lift and unify
      them without anyone having to edit a single file. */
-  /* The photos are black and white, graded by tools/grade-photos.py. These
-     tune what sits on top. saturate() has nothing to act on now, so contrast
-     is the only useful dial here; keep brightness at 1 or it undoes the
-     crushed blacks. The wash is a whisper of the palette over the greys —
-     enough to tie them to the page, not enough to be a duotone. Set
-     --grade-strength to 0 for pure neutral black and white. */
-  --photo-filter:   contrast(1.03);
+  /* The photos are halftone dot screens made by tools/grade-photos.py, so
+     there is nothing left here to correct: filters would only soften the
+     dots. The wash tints the screen towards the palette instead of leaving
+     it neutral grey. Set --grade-strength to 0 for plain black and white.
+     Dot pitch and contrast belong in the script, not here. */
+  --photo-filter:   none;
   --grade-blend:    soft-light;
-  --grade-strength: 0.16;
-  --drift-duration: 22s;
+  --grade-strength: 0.30;
 
   /* The logo keeps its own ink; this is what lifts it off a dark page.
      Two shadows: a tight one for edge definition, a wide one for lift. */
