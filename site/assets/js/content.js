@@ -9,13 +9,17 @@
 
 export const site = {
   /* --- identity -------------------------------------------------------- */
-  theme: "",                       // "" uses the :root palette in tokens.css
+  theme: "",                       // "" = :root. Also "paper", "scope", "rangoli"
   brand: {
-    name: "Rangoli Radio",
-    nameLines: ["Rangoli", "Radio"],   // how the name stacks in the hero
+    name: "Project Optic",
+    nameLines: ["Project", "Optic"],   // how the name stacks in the hero
     tagline: "Songs in English, हिंदी and ಕನ್ನಡ, from Bangalore",
     city: "Bangalore",
     baseUrl: "https://project-optic.netlify.app/",
+    /* Two cuts of the logo. Use the -light pair on dark themes and the plain
+       pair on the "paper" theme, where the original navy ink is at home. */
+    mark: "assets/img/logo-mark-light.png",   // lens only, for the nav + hero
+    logo: "assets/img/logo-light.png",        // full lockup, currently unused
   },
 
   /* --- nav: each entry points at a section id below -------------------- */
@@ -52,10 +56,10 @@ export const site = {
   /* --- about ----------------------------------------------------------- */
   about: {
     kicker: "Who we are",
-    title: "Two friends, one very colourful playlist",
+    title: "Everything we love, through one lens",
     body: [
-      "We're a Bangalore band that plays everything we grew up loving: **big-hearted pop rock** in the spirit of Coldplay, **Bollywood classics** from Rock On!! and A.R. Rahman, **indie Hindi** from The Local Train, Yellow Diary and Prateek Kuhad, and the **Kannada songs** our city sings along to.",
-      "One setlist, many colours. Just like a rangoli.",
+      "We're a Bangalore band that plays everything we grew up on: **big-hearted pop rock** in the spirit of Coldplay, **Bollywood classics** from Rock On!! and A.R. Rahman, **indie Hindi** from The Local Train, Yellow Diary and Prateek Kuhad, and the **Kannada songs** our city already knows every word to.",
+      "Four languages, one point of view. That's the whole project.",
     ],
     tags: ["Pop rock", "Bollywood", "Indie Hindi", "Kannada"],
     members: [
@@ -89,7 +93,7 @@ export const site = {
   videos: {
     kicker: "On camera",
     title: "Watch us play",
-    lead: "Live sessions, covers and jams. New videos land here as soon as we record them.",
+    lead: "Live sessions, covers and jams. New footage lands here as soon as it's cut.",
     /* Paste any YouTube link (watch?v= / youtu.be / shorts). An empty url
        renders a "coming soon" placeholder card, so the grid never looks broken. */
     items: [
@@ -125,12 +129,12 @@ export const site = {
 
   /* --- book ------------------------------------------------------------ */
   book: {
-    title: "Book Rangoli Radio",
+    title: "Book Project Optic",
     lead: "Cafés, college fests, weddings, corporate evenings and house gigs across Bangalore and beyond.",
-    email: "hello@rangoliradio.in",
-    emailSubject: "Booking Rangoli Radio",
+    email: "hello@projectoptic.in",
+    emailSubject: "Booking Project Optic",
     whatsapp: "919999999999",               // country code + number, digits only
-    whatsappText: "Hi Rangoli Radio! We'd like to book you for an event.",
+    whatsappText: "Hi Project Optic! We'd like to book you for an event.",
   },
 
   /* --- footer ---------------------------------------------------------- */
@@ -138,7 +142,7 @@ export const site = {
 
   /* --- optional flourishes --------------------------------------------- */
   options: {
-    starfield: true,   // animated backdrop behind the page
+    backdrop: "grain", // "grain" | "stars" | "none"  (see assets/js/backdrop.js)
     reveal: true,      // fade sections in as they scroll into view
   },
 };

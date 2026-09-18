@@ -23,7 +23,7 @@
   gap: var(--s-4);
   margin-bottom: var(--s-6);
 }
-.section__title { font-size: var(--t-3xl); }
+.section__title { font-size: var(--t-3xl); text-transform: uppercase; }
 .section__lead  { color: var(--c-muted); font-size: var(--t-lg); max-width: var(--w-prose); margin-top: var(--s-3); }
 
 /* Small uppercase kicker above a heading. */
@@ -75,7 +75,8 @@
   font-size: var(--t-lg);
   letter-spacing: var(--ls-tight);
 }
-.nav__mark { width: 2rem; height: 2rem; flex: none; }
+.nav__mark { width: auto; height: 1.9rem; flex: none; object-fit: contain; }
+.nav__brand span { text-transform: uppercase; letter-spacing: 0.06em; }
 
 .nav__links { display: flex; align-items: center; gap: var(--s-5); }
 .nav__link {

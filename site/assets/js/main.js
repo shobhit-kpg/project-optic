@@ -89,4 +89,4 @@ if (site.options.reveal && !prefersReducedMotion() && "IntersectionObserver" in 
 }
 
 /* --- 7. backdrop -------------------------------------------------------- */
-if (site.options.starfield) initBackdrop($("#backdrop"));
+initBackdrop($("#backdrop"), site.options.backdrop);

@@ -72,9 +72,19 @@
 }
 .hero__content > * { pointer-events: auto; }
 
+/* The lens mark, floated above the name. Drop-shadow rather than box-shadow
+   so the glow follows the splatter's silhouette, not a rectangle. */
+.hero__mark {
+  width: var(--logo-hero-w);
+  height: auto;
+  margin-bottom: calc(var(--s-3) * -1);
+  filter: drop-shadow(0 8px 30px color-mix(in srgb, var(--c-bg) 90%, transparent));
+}
+
 .hero__title {
   font-size: var(--t-hero);
-  line-height: 0.88;
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
   text-shadow: 0 6px 50px var(--c-bg), 0 1px 3px color-mix(in srgb, var(--c-bg) 80%, transparent);
 }
 .hero__title span { display: block; }
@@ -292,7 +302,7 @@
   align-items: center;
   gap: var(--s-3);
   padding: 0.8rem 1.4rem;
-  border-radius: var(--r-pill);
+  border-radius: var(--r-button);
   background: var(--c-surface);
   border: var(--border);
   font-weight: var(--fw-medium);
@@ -312,10 +322,11 @@
   padding: clamp(3rem, 8vw, 5.5rem) var(--s-5);
   border-radius: var(--r-xl);
   background:
-    radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--c-accent-1) 34%, transparent), transparent 52%),
-    radial-gradient(circle at 82% 78%, color-mix(in srgb, var(--c-accent-3) 34%, transparent), transparent 52%),
-    radial-gradient(circle at 78% 12%, color-mix(in srgb, var(--c-accent-2) 34%, transparent), transparent 52%),
+    radial-gradient(circle at 18% 18%, color-mix(in srgb, var(--c-accent-1) 38%, transparent), transparent 55%),
+    radial-gradient(circle at 82% 78%, color-mix(in srgb, var(--c-accent-4) 45%, transparent), transparent 55%),
+    radial-gradient(circle at 78% 12%, color-mix(in srgb, var(--c-accent-2) 30%, transparent), transparent 50%),
     var(--c-bg-2);
+  border: var(--border);
 }
 .book__lead { max-width: 46ch; color: var(--c-text); }
 

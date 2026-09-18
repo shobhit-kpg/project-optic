@@ -1,6 +1,6 @@
 # Netlify config for project-optic
-# The site is a single static page living in rangoli-radio/,
-# so publish that folder as the site root.
+# The band page lives in site/, so publish that folder as the web root.
+
 
 [build]
-  publish = "rangoli-radio"
+  publish = "site"

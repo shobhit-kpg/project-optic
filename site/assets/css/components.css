@@ -7,9 +7,11 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s-2);
-  padding: 0.85rem 1.7rem;
-  border-radius: var(--r-pill);
+  padding: 0.9rem 1.8rem;
+  border-radius: var(--r-button);
   font-family: var(--f-display);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   font-weight: var(--fw-bold);
   font-size: var(--t-base);
   line-height: 1;
@@ -31,8 +33,8 @@
   display: inline-flex;
   align-items: center;
   gap: var(--s-2);
-  padding: 0.35rem 0.95rem;
-  border-radius: var(--r-pill);
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--r-chip);
   border: var(--border);
   background: var(--c-surface);
   font-size: var(--t-sm);

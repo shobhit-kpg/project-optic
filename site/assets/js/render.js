@@ -27,7 +27,9 @@ const button = ({ label, href, style = "primary", ...rest }) =>
 export function renderNav(mount, site) {
   mount.append(
     el("a", { class: "nav__brand", href: "#top" },
-      brandMark(),
+      site.brand.mark
+        ? el("img", { class: "nav__mark", src: site.brand.mark, alt: "", width: "32", height: "28" })
+        : brandMark(),
       el("span", { text: site.brand.name }),
     ),
     el("nav", { class: "nav__links", "aria-label": "Sections" },
@@ -87,6 +89,15 @@ export function renderHero(mount, site) {
     el("div", { class: "carousel", "data-carousel": true }, track, ui),
     el("div", { class: "hero__veil", "aria-hidden": "true" }),
     el("div", { class: "hero__content" },
+      site.brand.mark
+        ? el("img", {
+            class: "hero__mark",
+            src: site.brand.mark,
+            alt: "",
+            loading: "eager",
+            fetchpriority: "high",
+          })
+        : null,
       el("h1", { class: "hero__title" },
         ...site.brand.nameLines.map((line) => el("span", { text: line })),
       ),
