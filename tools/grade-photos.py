@@ -2,10 +2,10 @@
 """Grade and resize live photos for the hero carousel.
 
 The photos come off several nights, several phones and several lighting rigs.
-This applies one cinematic look to all of them — colour pulled back, shadows
-toward the logo's ink navy, highlights slightly warm — so the carousel reads
-as one band rather than a camera roll. It then writes the responsive sizes
-the page asks for in `srcset`.
+Rather than repaint their colours to match — which drains exactly what makes a
+gig photo good — this crushes the blacks and pushes the colour, so every frame
+becomes dark and saturated. The set is unified by tonality while each night
+keeps its own light. It then writes the responsive sizes `srcset` asks for.
 
 Usage:
     python3 tools/grade-photos.py live-06 ~/Downloads/new-gig.JPG
@@ -23,19 +23,25 @@ import os
 import sys
 
 try:
-    from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw
+    from PIL import Image, ImageEnhance, ImageFilter, ImageDraw
 except ImportError:
     sys.exit("Pillow is not installed. See the docstring at the top of this file.")
 
-NAVY = (26, 32, 64)     # --c-accent equivalents: the logo's ink
-WARM = (255, 221, 198)  # highlight tint
 OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "site", "assets", "img")
 
 # width -> jpeg quality. Bigger files trade bits per pixel for pixels.
 SIZES = {1400: 82, 2400: 82, 3200: 76}
 
+# The grade, in one place. Raise SATURATION for more colour, BLACK_POINT for
+# deeper shadows. Both are also tunable live from tokens.css (--photo-filter).
+BLACK_POINT = 44     # how far the shadows are pulled down, 0-255
+GAMMA       = 1.02
+SATURATION  = 1.42
+CONTRAST    = 1.20
+VIGNETTE    = 0.30
 
-def vignette(im, strength=0.44):
+
+def vignette(im, strength=VIGNETTE):
     w, h = im.size
     mask = Image.new("L", (w, h), 0)
     ImageDraw.Draw(mask).ellipse([-w * 0.28, -h * 0.38, w * 1.28, h * 1.38], fill=255)
@@ -44,13 +50,23 @@ def vignette(im, strength=0.44):
     return Image.composite(im, Image.blend(im, dark, strength), mask)
 
 
-def cinematic(im):
-    im = ImageOps.autocontrast(im, cutoff=(1, 2))
-    im = ImageEnhance.Color(im).enhance(0.72)      # tame the venue's cast
-    grey = im.convert("L")
-    im = Image.blend(im, ImageOps.colorize(grey, NAVY, (255, 255, 255)), 0.42)
-    im = Image.blend(im, ImageOps.colorize(grey, (0, 0, 0), WARM), 0.20)
-    im = ImageEnhance.Contrast(im).enhance(1.16)
+def deepen(im, black=BLACK_POINT, gamma=GAMMA):
+    """Pull the shadows down.
+
+    Note this is the opposite of autocontrast, which lifts the black point and
+    makes a dark room look grey. A gig photo wants its blacks black.
+    """
+    lut = []
+    for i in range(256):
+        v = max(0.0, i - black) * (255.0 / (255 - black))
+        lut.append(int(min(255, 255 * ((v / 255.0) ** gamma))))
+    return im.point(lut * 3)
+
+
+def grade(im):
+    im = deepen(im)
+    im = ImageEnhance.Color(im).enhance(SATURATION)
+    im = ImageEnhance.Contrast(im).enhance(CONTRAST)
     return vignette(im)
 
 
@@ -69,14 +85,14 @@ def main():
         w, h = im.size
         im = im.crop((int(l * w), int(t * h), int(r * w), int(b * h)))
 
-    im = cinematic(im)
+    im = grade(im)
 
     out_dir = os.path.abspath(OUT_DIR)
     os.makedirs(out_dir, exist_ok=True)
+    widths = sorted({w for w in SIZES if w < im.width} | {min(im.width, max(SIZES))})
     written = []
-    for width, quality in sorted(SIZES.items()):
-        if width > im.width:
-            continue                                # never upscale; it only adds softness
+    for width in widths:
+        quality = SIZES.get(width, 82)
         resized = im.resize((width, round(im.height * (width / im.width))), Image.LANCZOS)
         resized = resized.filter(ImageFilter.UnsharpMask(radius=1.1, percent=60, threshold=3))
         path = os.path.join(out_dir, f"{args.name}-{width}.jpg")

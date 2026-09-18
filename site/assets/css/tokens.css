@@ -122,9 +122,13 @@
   /* --- photography ----------------------------------------------------- */
   /* Gig photos arrive dark, noisy and inconsistent. These lift and unify
      them without anyone having to edit a single file. */
-  --photo-filter:   saturate(1.12) contrast(1.10) brightness(1.04);
+  /* The grade is baked into the files by tools/grade-photos.py, so these are
+     for fine-tuning on top. Keep brightness at 1: lifting it here would undo
+     the crushed blacks the photos were graded for. The palette wash is kept
+     light so each night keeps its own colour, which is the whole point. */
+  --photo-filter:   saturate(1.02) contrast(1.02);
   --grade-blend:    soft-light;
-  --grade-strength: 0.55;
+  --grade-strength: 0.22;
   --drift-duration: 22s;
 
   /* The logo keeps its own ink; this is what lifts it off a dark page.
