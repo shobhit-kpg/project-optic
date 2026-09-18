@@ -39,15 +39,53 @@ export const site = {
       { label: "Watch us play", href: "#videos", style: "primary" },
       { label: "Book a show",   href: "#book",   style: "ghost" },
     ],
-    /* Drop real photos into assets/img/ and point at them here. Landscape,
-       roughly 16:10, at least 1600px wide. `alt` describes the photo for
-       screen readers; `caption` is the line shown under the carousel. */
+    /* Real photos, graded to a single cinematic look so five nights under
+       blue, yellow, red and magenta lighting read as one band.
+
+       `srcset` lets the browser pick a size: phones pull the 1400px file,
+       laptops the 2400px one. `focus` is the object-position, i.e. the part
+       of the frame to protect when it gets cropped to the viewport — the
+       band name sits over the left, so keep faces off it.
+
+       CAPTIONS ARE DESCRIPTIVE, NOT FACTUAL. Only live-05 names a venue,
+       because it is legible in the photograph. Put the real venues and
+       dates in before anyone reads this. */
     slides: [
-      { src: "assets/img/stage-01.svg", alt: "The band mid-set under warm stage lights", caption: "Fandom, Koramangala · Feb 2026" },
-      { src: "assets/img/stage-02.svg", alt: "Guitarist lit from the side during a solo",  caption: "Sunday session, Indiranagar" },
-      { src: "assets/img/stage-03.svg", alt: "Singing to a full room",                      caption: "College fest, Bangalore" },
-      { src: "assets/img/stage-04.svg", alt: "Wide shot of the stage and the crowd",        caption: "Terrace gig at sundown" },
-      { src: "assets/img/stage-05.svg", alt: "The two of us at the mic together",           caption: "Rehearsal room, take five" },
+      {
+        src: "assets/img/live-01-2400.jpg",
+        srcset: "assets/img/live-01-1400.jpg 1400w, assets/img/live-01-2400.jpg 2400w, assets/img/live-01-3200.jpg 3200w",
+        alt: "Three of the band in silhouette against blue stage haze",
+        caption: "Backlit and in the smoke",
+        focus: "62% 45%",
+      },
+      {
+        src: "assets/img/live-02-2400.jpg",
+        srcset: "assets/img/live-02-1400.jpg 1400w, assets/img/live-02-2400.jpg 2400w, assets/img/live-02-3200.jpg 3200w",
+        alt: "Two singers at their mics, lit from behind",
+        caption: "Two mics, one spotlight",
+        focus: "68% 50%",
+      },
+      {
+        src: "assets/img/live-03-2400.jpg",
+        srcset: "assets/img/live-03-1400.jpg 1400w, assets/img/live-03-2400.jpg 2400w, assets/img/live-03-3200.jpg 3200w",
+        alt: "The crowd with their hands in the air, lit from the stage",
+        caption: "The room, giving it back",
+        focus: "52% 50%",
+      },
+      {
+        src: "assets/img/live-04-2400.jpg",
+        srcset: "assets/img/live-04-1400.jpg 1400w, assets/img/live-04-2400.jpg 2400w, assets/img/live-04-3200.jpg 3200w",
+        alt: "The full band mid-song, bass and guitar in front, drums behind",
+        caption: "Full band, full volume",
+        focus: "55% 48%",
+      },
+      {
+        src: "assets/img/live-05-1600.jpg",
+        srcset: "assets/img/live-05-1400.jpg 1400w, assets/img/live-05-1600.jpg 1600w",
+        alt: "The five-piece on stage at Hard Rock Cafe",
+        caption: "Hard Rock Cafe",
+        focus: "55% 45%",
+      },
     ],
     autoplayMs: 5200,   // 0 disables auto-advance
   },

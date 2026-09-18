@@ -67,13 +67,17 @@ export function renderHero(mount, site) {
         el("img", {
           class: "slide__img",
           src: s.src,
+          srcset: s.srcset || null,
+          /* The hero is full-bleed, so the rendered width is the viewport. */
+          sizes: s.srcset ? "100vw" : null,
           alt: s.alt || "",
           /* First slide is the LCP image: fetch it eagerly and early; the
              rest can wait until they are scrolled towards. */
           loading: i === 0 ? "eager" : "lazy",
           fetchpriority: i === 0 ? "high" : "low",
           decoding: "async",
-          sizes: "100vw",
+          /* Which part of the frame to keep when it is cropped to fit. */
+          style: s.focus ? { objectPosition: s.focus } : null,
         }),
       )
     ),

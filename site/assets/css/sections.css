@@ -25,10 +25,19 @@
   isolation: isolate;
   overflow: hidden;
 }
-.hero > * { grid-area: 1 / 1; }
+
+/* The three background layers are taken out of flow on purpose. Left in it,
+   they have no definite height to resolve their `height: 100%` against, so
+   each photo falls back to its intrinsic size and the tallest one stretches
+   the whole hero — a portrait frame among landscapes would drag the buttons
+   below the fold. Positioned, they fill the hero and the hero is sized by
+   its content and --hero-min alone. */
+.carousel,
+.hero__grade,
+.hero__scrim { position: absolute; inset: 0; }
 
 /* --- the photographs ---------------------------------------------------- */
-.carousel { position: relative; overflow: hidden; }
+.carousel { overflow: hidden; }
 
 .carousel__track {
   display: flex;
@@ -105,6 +114,7 @@
 .hero__inner {
   position: relative;
   z-index: 2;
+  grid-area: 1 / 1;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

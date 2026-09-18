@@ -53,7 +53,7 @@
   --t-xl:   clamp(1.4rem,  1.0vw + 1.15rem, 1.9rem);
   --t-2xl:  clamp(1.9rem,  2.2vw + 1.3rem,  2.8rem);
   --t-3xl:  clamp(2.4rem,  4.6vw + 1.2rem,  4.2rem);
-  --t-hero: clamp(3.6rem,  13vw,            10rem);
+  --t-hero: clamp(3rem,    9.5vw,           7.5rem);
 
   --lh-tight: 0.94;
   --lh-snug:  1.2;
@@ -111,7 +111,7 @@
   --slide-ratio: 16 / 10;
 
   /* --- brand ---------------------------------------------------------- */
-  --logo-hero-w: clamp(9rem, 20vw, 15rem);
+  --logo-hero-w: clamp(6.5rem, 13vw, 10.5rem);
   --grain-opacity: 0.05;
 
   /* --- the closing booking panel -------------------------------------- */

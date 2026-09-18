@@ -65,6 +65,80 @@ The four `--c-accent-*` tokens are cycled automatically across chips, card
 spines, song borders and social icons, so a new palette recolours the whole
 page without touching any component.
 
+## The photos
+
+`assets/img/live-0*.jpg` are the real live shots, graded and resized from the
+originals. Each exists at several widths and the page picks one via `srcset`:
+a phone pulls the 1400px file, a retina laptop the 3200px one.
+
+### Adding a photo
+
+```bash
+python3 tools/grade-photos.py live-06 ~/Downloads/new-gig.JPG
+```
+
+It applies the same cinematic grade as the existing five, writes every size,
+and prints the block to paste into `hero.slides` in `content.js`. For a
+**portrait** original, pass a landscape crop rather than letting CSS do it:
+
+```bash
+python3 tools/grade-photos.py live-06 ~/Downloads/tall.JPG --crop 0,0.34,1,0.90
+```
+
+### What makes a good source
+
+- **3000px wide or more.** The hero is full-bleed, so the photo covers the
+  whole viewport. Anything under ~2000px looks soft on a laptop — this is the
+  usual reason a hero photo looks pixelated.
+- **Landscape**, with the action toward the right. The band name sits over the
+  left third.
+- **Dark and backlit is ideal**, which live shots usually are.
+
+### Per-photo settings in `content.js`
+
+| Key      | Does                                                          |
+|----------|---------------------------------------------------------------|
+| `srcset` | The size ladder. `grade-photos.py` prints it for you.          |
+| `focus`  | `object-position` — the part of the frame to protect when it is cropped to the viewport. Keep faces off the left third. |
+| `alt`    | Read aloud to screen reader users. Describe what is happening. |
+| `caption`| The line under the carousel. Put the real venue and date here. |
+
+### Tuning the look without touching a file
+
+Three tokens in `tokens.css` grade every photo at once:
+
+| Token              | Does                                                    |
+|--------------------|---------------------------------------------------------|
+| `--photo-filter`   | Lift and punch: saturation, contrast, brightness.        |
+| `--grade-strength` | How hard the palette wash pulls the photos together. `0` = off. |
+| `--drift-duration` | Speed of the slow zoom. Longer is calmer.                |
+
+## Themes
+
+The default palette is taken from the logo: ink navy `#1c2244`, signal red
+`#f04e41`, paper steel `#e5ebf2`. `tokens.css` also ships:
+
+| `theme:`    | Looks like                                              |
+|-------------|---------------------------------------------------------|
+| `""`        | **Current.** Near-black, bone type, red lens accent.     |
+| `"paper"`   | Navy ink on bone. Gig-poster; suits light photography.   |
+| `"scope"`   | Cold green/cyan. Surveillance rather than stage.         |
+| `"rangoli"` | The earlier festive palette, kept one word away.         |
+
+**The logo is never recoloured.** It goes in exactly as drawn — navy ink, red
+lens — on every theme. What makes it survive a near-black page is
+`--logo-halo` in `tokens.css`, a soft bone glow shaped to the artwork that
+lifts it off the background. The `paper` theme sets that token to `none`,
+because ink on bone needs no help. Switching theme needs no asset swap.
+
+To add a palette, copy a `[data-theme="…"]` block and restate only what
+differs — everything else inherits from `:root`. A theme can also change
+shape and type: see how `"rangoli"` overrides `--r-button` and `--f-display`.
+
+The four `--c-accent-*` tokens are cycled automatically across chips, card
+spines, song borders and social icons, so a new palette recolours the whole
+page without touching any component.
+
 ## Replacing the placeholder photos
 
 `assets/img/stage-0*.svg` are generated stand-ins. Drop real photos in
