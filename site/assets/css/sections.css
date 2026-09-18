@@ -4,70 +4,31 @@
    ========================================================================== */
 
 /* ==========================================================================
-   1. HERO — the brand beside a framed, self-scrolling strip of photos.
+   1. HERO — the photographs are the page. Full bleed, edge to edge, with the
+   brand standing on top of them.
 
-   The photographs sit in their own frame rather than behind the words. An
-   overlay hero has to gamble that every photo is dark enough for the title
-   to survive on top of it; this one never does, which matters when the
-   photos are swapped for real ones and on the light themes, where navy ink
-   over a dark stage shot would disappear.
+   Three stacked layers make that safe to do with real gig photos, which are
+   dark, mixed in quality and shot on whatever was to hand:
+
+     .carousel     the photographs, slowly drifting
+     .hero__grade  a soft-light wash that pulls every frame towards the
+                   palette, so a warm phone shot and a cold one still look
+                   like the same band
+     .hero__scrim  the contrast floor under the type
+
+   Everything is driven by tokens, so a theme can restage the whole thing.
    ========================================================================== */
 .hero {
   position: relative;
+  min-height: var(--hero-min);
   display: grid;
-  align-items: center;
-  padding-block: calc(var(--nav-h) + var(--s-7)) var(--s-8);
-}
-
-.hero__grid {
-  display: grid;
-  grid-template-columns: 1fr 1.08fr;
-  gap: clamp(var(--s-5), 4vw, var(--s-7));
-  align-items: center;
-}
-
-/* --- the words ---------------------------------------------------------- */
-.hero__content {
-  display: grid;
-  justify-items: start;
-  gap: var(--s-4);
-}
-
-/* Drop-shadow rather than box-shadow, so the glow follows the splatter's
-   silhouette instead of a rectangle. */
-.hero__mark {
-  width: var(--logo-hero-w);
-  height: auto;
-  margin-bottom: calc(var(--s-3) * -1);
-  filter: drop-shadow(0 10px 26px color-mix(in srgb, var(--c-text) 22%, transparent));
-}
-
-.hero__title {
-  font-size: var(--t-hero);
-  line-height: var(--lh-tight);
-  text-transform: uppercase;
-}
-.hero__title span { display: block; }
-.hero__title span:nth-child(2) { color: var(--c-accent-1); }
-
-.hero__tagline {
-  font-family: var(--f-display);
-  font-weight: var(--fw-medium);
-  font-size: var(--t-xl);
-  max-width: 22ch;
-  color: var(--c-muted);
-}
-
-/* --- the frame ---------------------------------------------------------- */
-.carousel {
-  position: relative;
+  isolation: isolate;
   overflow: hidden;
-  aspect-ratio: var(--slide-ratio);
-  border-radius: var(--r-lg);
-  border: var(--border);
-  background: var(--c-bg-2);
-  box-shadow: var(--shadow-md);
 }
+.hero > * { grid-area: 1 / 1; }
+
+/* --- the photographs ---------------------------------------------------- */
+.carousel { position: relative; overflow: hidden; }
 
 .carousel__track {
   display: flex;
@@ -83,55 +44,144 @@
   position: relative;
   flex: 0 0 100%;
   height: 100%;
+  overflow: hidden;
   scroll-snap-align: center;
   scroll-snap-stop: always;
 }
-.slide__img { width: 100%; height: 100%; object-fit: cover; }
 
-/* --- caption and controls, under the frame ------------------------------ */
-.carousel__bar {
+.slide__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: var(--photo-filter);
+  /* A slow drift, so a still photograph still feels like a room with people
+     in it. The scale floor also hides soft edges on a low-resolution frame. */
+  animation: drift var(--drift-duration) ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes drift {
+  from { transform: scale(1.04) translate3d(0, 0, 0); }
+  to   { transform: scale(1.13) translate3d(-1.5%, -1.2%, 0); }
+}
+.slide:nth-child(even) .slide__img { animation-direction: alternate-reverse; }
+
+@media (prefers-reduced-motion: reduce) {
+  .slide__img { animation: none; transform: scale(1.04); }
+}
+
+/* --- the grade ---------------------------------------------------------- */
+.hero__grade {
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: var(--grade-blend);
+  opacity: var(--grade-strength);
+  background:
+    linear-gradient(205deg,
+      var(--c-accent-4) 0%,
+      transparent 45%),
+    radial-gradient(ellipse at 70% 78%,
+      var(--c-accent-1) 0%,
+      transparent 58%);
+}
+
+/* --- the contrast floor -------------------------------------------------- */
+.hero__scrim {
+  pointer-events: none;
+  z-index: 1;
+  background:
+    linear-gradient(180deg,
+      color-mix(in srgb, var(--c-bg) 78%, transparent) 0%,
+      transparent 26%,
+      transparent 40%,
+      color-mix(in srgb, var(--c-bg) 72%, transparent) 76%,
+      var(--c-bg) 100%),
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--c-bg) 82%, transparent) 0%,
+      color-mix(in srgb, var(--c-bg) 30%, transparent) 42%,
+      transparent 70%);
+}
+
+/* --- the brand, standing on the photograph ------------------------------ */
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: var(--s-5);
+  padding-block: calc(var(--nav-h) + var(--s-6)) var(--s-6);
+}
+
+.hero__content { display: grid; justify-items: start; gap: var(--s-4); }
+
+/* The halo is what lets the logo keep its own ink on a dark page: it lifts
+   the artwork off the background instead of recolouring it. */
+.hero__mark {
+  width: var(--logo-hero-w);
+  height: auto;
+  margin-bottom: calc(var(--s-3) * -1);
+  filter: var(--logo-halo);
+}
+
+.hero__title {
+  font-size: var(--t-hero);
+  line-height: var(--lh-tight);
+  text-transform: uppercase;
+  text-shadow: 0 6px 44px var(--c-bg), 0 2px 8px color-mix(in srgb, var(--c-bg) 70%, transparent);
+}
+.hero__title span { display: block; }
+.hero__title span:nth-child(2) { color: var(--c-accent-1); }
+
+.hero__tagline {
+  font-family: var(--f-display);
+  font-weight: var(--fw-medium);
+  font-size: var(--t-xl);
+  max-width: 24ch;
+  text-shadow: 0 2px 20px var(--c-bg);
+}
+
+/* --- caption and controls ------------------------------------------------ */
+.hero__bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--s-4);
-  margin-top: var(--s-3);
+  padding-top: var(--s-4);
+  border-top: var(--border);
 }
 .carousel__caption {
   font-size: var(--t-sm);
   color: var(--c-muted);
+  text-shadow: 0 1px 12px var(--c-bg);
   min-height: 1.5em;
 }
 .carousel__nav { display: flex; align-items: center; gap: var(--s-3); }
 
 .carousel__btn {
-  width: 2.4rem; height: 2.4rem;
+  width: 2.5rem; height: 2.5rem;
   display: grid;
   place-items: center;
   border-radius: 50%;
   border: var(--border);
-  background: var(--c-surface);
+  background: var(--c-veil);
+  backdrop-filter: blur(10px);
   transition: background var(--d-fast), border-color var(--d-fast), transform var(--d-fast);
 }
-.carousel__btn:hover { background: var(--c-surface-2); border-color: var(--c-line-strong); transform: scale(1.06); }
+.carousel__btn:hover { background: var(--c-surface-2); border-color: var(--c-text); transform: scale(1.06); }
 .carousel__btn svg { width: 1rem; height: 1rem; fill: none; stroke: currentColor; stroke-width: 2.4; }
 
 .carousel__dots { display: flex; gap: var(--s-2); }
 .carousel__dot {
-  width: 1.8rem; height: 3px;
+  width: 2rem; height: 3px;
   border-radius: var(--r-pill);
   background: var(--c-line-strong);
   transition: background var(--d-base);
 }
 .carousel__dot[aria-current="true"] { background: var(--c-accent-1); }
 
-@media (max-width: 900px) {
-  .hero { padding-block: calc(var(--nav-h) + var(--s-5)) var(--s-7); }
-  .hero__grid { grid-template-columns: 1fr; gap: var(--s-6); }
-  .hero__content { justify-items: start; }
-}
-
-@media (max-width: 560px) {
-  .carousel__bar { flex-direction: column; align-items: flex-start; gap: var(--s-2); }
+@media (max-width: 680px) {
+  .hero__bar { flex-direction: column; align-items: flex-start; gap: var(--s-3); }
+  .hero__tagline { max-width: none; }
 }
 
 /* ==========================================================================

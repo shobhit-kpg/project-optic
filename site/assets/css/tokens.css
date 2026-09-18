@@ -118,6 +118,21 @@
   --book-surface: var(--c-bg-2);
   --book-ink:     var(--c-text);
   --book-wash:    38%;
+
+  /* --- photography ----------------------------------------------------- */
+  /* Gig photos arrive dark, noisy and inconsistent. These lift and unify
+     them without anyone having to edit a single file. */
+  --photo-filter:   saturate(1.12) contrast(1.10) brightness(1.04);
+  --grade-blend:    soft-light;
+  --grade-strength: 0.55;
+  --drift-duration: 22s;
+
+  /* The logo keeps its own ink; this is what lifts it off a dark page.
+     Two shadows: a tight one for edge definition, a wide one for lift. */
+  --logo-halo:
+    drop-shadow(0 0 1px color-mix(in srgb, var(--c-text) 85%, transparent))
+    drop-shadow(0 0 7px color-mix(in srgb, var(--c-text) 70%, transparent))
+    drop-shadow(0 4px 26px color-mix(in srgb, var(--c-text) 30%, transparent));
 }
 
 /* ==========================================================================
@@ -144,6 +159,9 @@
   --book-surface: #1c2244;
   --book-ink:     #f4f2ec;
   --book-wash:    26%;
+  /* The ink already reads against bone, so no halo. */
+  --logo-halo:      none;
+  --grade-strength: 0.35;
 }
 
 /* Colder, more clinical: surveillance rather than stage. */

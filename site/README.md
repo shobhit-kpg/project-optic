@@ -44,17 +44,18 @@ assets/img/             hero photos (currently generated placeholders)
 The default palette is taken from the logo: ink navy `#1c2244`, signal red
 `#f04e41`, paper steel `#e5ebf2`. `tokens.css` also ships:
 
-| `theme:`    | Looks like                                             | Use these logo cuts |
-|-------------|--------------------------------------------------------|---------------------|
-| `"paper"`   | **Current.** Navy ink on bone — the logo's own colours. | `logo-mark.png`, `logo.png` |
-| `""`        | Near-black navy, bone type, red lens accent.            | `logo-mark-light.png`, `logo-light.png` |
-| `"scope"`   | Cold green/cyan. Surveillance rather than stage.        | `logo-mark-light.png`, `logo-light.png` |
-| `"rangoli"` | The earlier festive palette, kept one word away.        | `logo-mark-light.png`, `logo-light.png` |
+| `theme:`    | Looks like                                              |
+|-------------|---------------------------------------------------------|
+| `""`        | **Current.** Near-black, bone type, red lens accent.     |
+| `"paper"`   | Navy ink on bone. Gig-poster; suits light photography.   |
+| `"scope"`   | Cold green/cyan. Surveillance rather than stage.         |
+| `"rangoli"` | The earlier festive palette, kept one word away.         |
 
-**Changing theme means changing the logo cut too.** The artwork is navy ink, so
-it only shows up on a light background; the `-light` files are tonally inverted
-for the dark themes. Set both `theme` and `brand.mark` / `brand.logo` together
-in `content.js`, or the logo will vanish into the background.
+**The logo is never recoloured.** It goes in exactly as drawn — navy ink, red
+lens — on every theme. What makes it survive a near-black page is
+`--logo-halo` in `tokens.css`, a soft bone glow shaped to the artwork that
+lifts it off the background. The `paper` theme sets that token to `none`,
+because ink on bone needs no help. Switching theme needs no asset swap.
 
 To add a palette, copy a `[data-theme="…"]` block and restate only what
 differs — everything else inherits from `:root`. A theme can also change
@@ -67,9 +68,30 @@ page without touching any component.
 ## Replacing the placeholder photos
 
 `assets/img/stage-0*.svg` are generated stand-ins. Drop real photos in
-`assets/img/` (landscape, ~16:10, at least 1600px wide) and point
-`hero.slides` at them. Keep `alt` filled in — it is read aloud to anyone using
-a screen reader.
+`assets/img/` and point `hero.slides` at them. Keep `alt` filled in — it is
+read aloud to anyone using a screen reader.
+
+They run full-bleed behind the title, so:
+
+- **At least 2400px wide.** They cover the whole viewport, so anything smaller
+  will look soft on a large screen. This is the usual cause of a photo looking
+  pixelated here.
+- **Landscape**, and busy detail towards the right — the left side sits under
+  the band name.
+- **Dark frames are ideal**, which live gig photos usually are.
+
+Three tokens in `tokens.css` tune how they are treated, without editing a
+single image:
+
+| Token              | Does                                                    |
+|--------------------|---------------------------------------------------------|
+| `--photo-filter`   | Lift and punch: saturation, contrast, brightness.        |
+| `--grade-strength` | How hard the palette wash pulls mixed photos together. `0` = off. |
+| `--drift-duration` | Speed of the slow zoom. Longer is calmer.                |
+
+The grade is the useful one when photos come from different nights and
+different phones: it pulls a warm frame and a cold frame towards the same
+palette so the carousel looks like one band rather than a camera roll.
 
 ## Notes
 
@@ -93,14 +115,18 @@ All generated from the source artwork, which had the white background baked in.
 The outer white was flood-filled to transparency; the eyeball, being interior,
 was kept opaque.
 
-| File                       | Use                                          |
-|----------------------------|----------------------------------------------|
-| `logo.png`                 | Full lockup, original navy ink. Light backgrounds. |
-| `logo-light.png`           | Full lockup, tonally inverted. Dark backgrounds.   |
-| `logo-mark.png`            | Lens only, navy ink. Nav and hero on light.        |
-| `logo-mark-light.png`      | Lens only, inverted. Nav and hero on dark.         |
-| `og-cover.png`             | 1200×630 social preview card.                      |
-| `favicon-32.png`, `icon-180.png` | Browser tab and iOS home screen.             |
+| File                             | Use                                    |
+|----------------------------------|----------------------------------------|
+| `logo.png` / `logo@2x.png`             | Full lockup. `@2x` is what the page uses. |
+| `logo-mark.png` / `logo-mark@2x.png`   | Lens only, for the nav and hero.          |
+| `og-cover.png`                         | 1200×630 social preview card.             |
+| `favicon-32.png`, `icon-180.png`       | Browser tab and iOS home screen.          |
+
+**Sharpness ceiling.** The supplied artwork is a 1024×1024 raster, so that is
+the most detail there is. The `@2x` files are upsampled to keep the browser
+from resampling them again, which is what made edges look soft, but they
+cannot invent detail. If you can get the logo as an **SVG** (or a 3000px+
+export) from whoever drew it, drop it in and it will be crisp at any size.
 
 Keep the original `optic_logo.webp` somewhere safe — these are all derived from
 it, and regenerating needs the original.

@@ -50,6 +50,10 @@ export function renderNav(mount, site) {
 export function renderHero(mount, site) {
   const { slides, ctas } = site.hero;
 
+  /* The carousel's parts are spread across the hero (photos behind, controls
+     in the overlay), so the hero itself is the carousel root. */
+  mount.setAttribute("data-carousel", "");
+
   const track = el("div", {
     class: "carousel__track",
     "data-carousel-track": true,
@@ -64,31 +68,24 @@ export function renderHero(mount, site) {
           class: "slide__img",
           src: s.src,
           alt: s.alt || "",
-          /* First slide is the LCP image: load it eagerly and hint it early;
-             the rest can wait until they are scrolled towards. */
+          /* First slide is the LCP image: fetch it eagerly and early; the
+             rest can wait until they are scrolled towards. */
           loading: i === 0 ? "eager" : "lazy",
           fetchpriority: i === 0 ? "high" : "low",
           decoding: "async",
+          sizes: "100vw",
         }),
       )
     ),
   );
 
-  /* Caption and controls sit under the frame rather than on top of it, so
-     they never depend on how light or dark a given photograph happens to be. */
-  const bar = el("div", { class: "carousel__bar" },
-    el("p", { class: "carousel__caption", "data-carousel-caption": true, "aria-live": "off" }),
-    el("div", { class: "carousel__nav" },
-      el("button", { class: "carousel__btn", type: "button", "data-carousel-prev": true, "aria-label": "Previous photo" },
-        el("span", { html: ICONS.chevronLeft })),
-      el("div", { class: "carousel__dots", "data-carousel-dots": true }),
-      el("button", { class: "carousel__btn", type: "button", "data-carousel-next": true, "aria-label": "Next photo" },
-        el("span", { html: ICONS.chevronRight })),
-    ),
-  );
-
   mount.append(
-    el("div", { class: "wrap wrap--wide hero__grid" },
+    el("div", { class: "carousel" }, track),
+    /* Grade first, then scrim: the grade pulls whatever was shot that night
+       towards the palette, the scrim buys the type its contrast. */
+    el("div", { class: "hero__grade", "aria-hidden": "true" }),
+    el("div", { class: "hero__scrim", "aria-hidden": "true" }),
+    el("div", { class: "hero__inner wrap wrap--wide" },
       el("div", { class: "hero__content" },
         site.brand.mark
           ? el("img", {
@@ -105,10 +102,15 @@ export function renderHero(mount, site) {
         el("p", { class: "hero__tagline", text: site.brand.tagline }),
         el("div", { class: "btn-row" }, ...ctas.map(button)),
       ),
-      /* data-carousel wraps frame + bar so carousel.js finds all its parts. */
-      el("div", { class: "hero__media", "data-carousel": true },
-        el("div", { class: "carousel" }, track),
-        bar,
+      el("div", { class: "hero__bar" },
+        el("p", { class: "carousel__caption", "data-carousel-caption": true, "aria-live": "off" }),
+        el("div", { class: "carousel__nav" },
+          el("button", { class: "carousel__btn", type: "button", "data-carousel-prev": true, "aria-label": "Previous photo" },
+            el("span", { html: ICONS.chevronLeft })),
+          el("div", { class: "carousel__dots", "data-carousel-dots": true }),
+          el("button", { class: "carousel__btn", type: "button", "data-carousel-next": true, "aria-label": "Next photo" },
+            el("span", { html: ICONS.chevronRight })),
+        ),
       ),
     ),
   );

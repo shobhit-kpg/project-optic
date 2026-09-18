@@ -9,7 +9,7 @@
 
 export const site = {
   /* --- identity -------------------------------------------------------- */
-  theme: "paper",                  // "" = :root (dark). Also "paper", "scope", "rangoli"
+  theme: "",                       // "" = :root (dark). Also "paper", "scope", "rangoli"
   brand: {
     name: "Project Optic",
     nameLines: ["Project", "Optic"],   // how the name stacks in the hero
@@ -17,10 +17,11 @@ export const site = {
     city: "Bangalore",
     baseUrl: "https://project-optic.netlify.app/",
     /* The logo exactly as drawn: navy ink, red lens, nothing recoloured.
-       On the dark themes swap both to the -light cuts, which are tonally
-       inverted so the artwork stays visible against near-black. */
-    mark: "assets/img/logo-mark.png",         // lens only, for the nav + hero
-    logo: "assets/img/logo.png",              // full lockup, currently unused
+       It survives the dark page because --logo-halo in tokens.css lifts it
+       off the background rather than repainting it, so these files stay the
+       same whichever theme is set. @2x so retina screens get crisp edges. */
+    mark: "assets/img/logo-mark@2x.png",      // lens only, for the nav + hero
+    logo: "assets/img/logo@2x.png",           // full lockup, currently unused
   },
 
   /* --- nav: each entry points at a section id below -------------------- */
