@@ -24,6 +24,7 @@ const SECTIONS = [
   ["#videos",  render.renderVideos],
   ["#shows",   render.renderShows],
   ["#listen",  render.renderListen],
+  ["#ep",      render.renderEp],
   ["#book",    render.renderBook],
   ["#footer",  render.renderFooter],
 ];

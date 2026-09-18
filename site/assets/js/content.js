@@ -30,6 +30,7 @@ export const site = {
     { label: "What we play", href: "#repertoire", optional: true },
     { label: "Videos",  href: "#videos" },
     { label: "Shows",   href: "#shows",  optional: true },
+    { label: "EP",      href: "#ep",     optional: true },
     { label: "Book us", href: "#book" },
   ],
 
@@ -241,6 +242,22 @@ export const site = {
       YouTube:   "",                        // paste the channel URL when there is one
       Spotify:   "",
     },
+  },
+
+  /* --- EP teaser ---------------------------------------------------------
+     Sits just before the booking block, so the page builds to "there is new
+     music coming" and then asks for the gig. Move its line in the SECTIONS
+     list in main.js (and its shell in index.html) to reposition it.
+     --------------------------------------------------------------------- */
+  ep: {
+    kicker: "In the studio",
+    status: "In progress",
+    title: "Our first EP is on the way",
+    lead: "Originals, in between the covers. No release date yet — when there is one, it lands on Instagram first.",
+    /* "" falls back to the Instagram link in `listen`, so there is only one
+       place to change it. Point it at a pre-save or a label page later. */
+    ctaLabel: "Follow for the drop",
+    ctaHref: "",
   },
 
   /* --- book ------------------------------------------------------------ */

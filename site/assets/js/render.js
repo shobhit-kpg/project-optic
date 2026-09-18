@@ -348,6 +348,40 @@ export function renderListen(mount, site) {
   );
 }
 
+/* --- EP teaser ----------------------------------------------------------- */
+
+export function renderEp(mount, site) {
+  const e = site.ep;
+  if (!e?.title) return mount.remove();
+
+  /* Falls back to the Instagram link so the announcement channel is stated
+     in one place only. No link at all rather than a dead button. */
+  const href = e.ctaHref || site.listen?.links?.Instagram || "";
+
+  mount.append(
+    el("div", { class: "wrap" },
+      el("div", { class: "ep" },
+        /* The lens, bleeding off the edge as a watermark. */
+        site.brand.mark
+          ? el("img", { class: "ep__mark", src: site.brand.mark, alt: "", loading: "lazy", "aria-hidden": "true" })
+          : null,
+        el("div", { class: "ep__body" },
+          el("div", { class: "ep__meta" },
+            e.kicker ? el("p", { class: "kicker", text: e.kicker }) : null,
+            e.status ? el("span", { class: "chip ep__status", text: e.status }) : null,
+          ),
+          el("h2", { class: "ep__title", text: e.title }),
+          e.lead ? el("p", { class: "ep__lead", text: e.lead }) : null,
+          href
+            ? el("div", { class: "btn-row" },
+                button({ label: e.ctaLabel || "Follow", href, style: "primary", target: "_blank", rel: "noopener" }))
+            : null,
+        ),
+      ),
+    ),
+  );
+}
+
 /* --- book --------------------------------------------------------------- */
 
 export function renderBook(mount, site) {
