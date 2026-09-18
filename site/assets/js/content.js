@@ -67,6 +67,14 @@ export const site = {
        dates in before anyone reads this. */
     slides: [
       {
+        src: "assets/img/live-04-2400.png",
+        srcset: "assets/img/live-04-1400.png 1400w, assets/img/live-04-2400.png 2400w, assets/img/live-04-3200.png 3200w",
+        portrait: "assets/img/live-04-p1100.png 1100w, assets/img/live-04-p1500.png 1500w",
+        alt: "The full band mid-song, bass and guitar in front, drums behind",
+        caption: "Full band, full volume",
+        focus: "55% 48%",
+      },
+      {
         src: "assets/img/live-01-2400.png",
         srcset: "assets/img/live-01-1400.png 1400w, assets/img/live-01-2400.png 2400w, assets/img/live-01-3200.png 3200w",
         portrait: "assets/img/live-01-p1100.png 1100w, assets/img/live-01-p1500.png 1500w",
@@ -91,14 +99,6 @@ export const site = {
         focus: "52% 50%",
       },
       {
-        src: "assets/img/live-04-2400.png",
-        srcset: "assets/img/live-04-1400.png 1400w, assets/img/live-04-2400.png 2400w, assets/img/live-04-3200.png 3200w",
-        portrait: "assets/img/live-04-p1100.png 1100w, assets/img/live-04-p1500.png 1500w",
-        alt: "The full band mid-song, bass and guitar in front, drums behind",
-        caption: "Full band, full volume",
-        focus: "55% 48%",
-      },
-      {
         src: "assets/img/live-05-1600.png",
         srcset: "assets/img/live-05-1400.png 1400w, assets/img/live-05-1600.png 1600w",
         portrait: "assets/img/live-05-p677.png 677w",
@@ -111,20 +111,24 @@ export const site = {
   },
 
   /* --- the strip that scrolls under the hero --------------------------- */
-  marquee: ["Pop rock", "Bollywood", "Indie Hindi", "ಕನ್ನಡ", "Coldplay", "A.R. Rahman", "The Local Train", "Sundown sets"],
+  marquee: ["Punjabi Party", "Hindi Indie", "Bollywood", "Rock", "BritPop", "Sufi", "Kannada", "Pop"],
 
   /* --- about ----------------------------------------------------------- */
   about: {
     kicker: "Who we are",
-    title: "Everything we love, through one lens",
+    title: "One band, eight kinds of night",
     body: [
-      "We're a Bangalore band that plays everything we grew up on: **big-hearted pop rock** in the spirit of Coldplay, **Bollywood classics** from Rock On!! and A.R. Rahman, **indie Hindi** from The Local Train, Yellow Diary and Prateek Kuhad, and the **Kannada songs** our city already knows every word to.",
-      "Four languages, one point of view. That's the whole project.",
+      "Project Optic is a Bangalore band built around a deliberately wide set: **Punjabi party** starters, **Hindi indie** for the quiet middle, **Bollywood** everyone already knows the words to, **rock** and **BritPop** for the big choruses, **Sufi** for when the room goes still, and the **Kannada** songs our city sings back at us.",
+      "One set, eight kinds of night. We read the room and pick the lens.",
     ],
-    tags: ["Pop rock", "Bollywood", "Indie Hindi", "Kannada"],
+    tags: ["Punjabi Party", "Hindi Indie", "Bollywood", "Rock", "BritPop", "Sufi", "Kannada", "Pop"],
+    /* The photos show a five-piece. Put the real names and instruments here. */
     members: [
-      { name: "Your Name",      role: "Guitar",             emoji: "🎸" },
-      { name: "Friend's Name",  role: "Vocals and guitar",  emoji: "🎤" },
+      { name: "Name",  role: "Vocals",       emoji: "🎤" },
+      { name: "Name",  role: "Guitar",       emoji: "🎸" },
+      { name: "Name",  role: "Guitar",       emoji: "🎸" },
+      { name: "Name",  role: "Bass",         emoji: "🎻" },
+      { name: "Name",  role: "Drums",        emoji: "🥁" },
     ],
   },
 
@@ -132,20 +136,38 @@ export const site = {
   setlist: {
     kicker: "What we play",
     title: "The setlist",
-    lead: "A rotating set of about forty songs. Filter by language to see the shape of a night with us.",
-    /* language drives the filter chips; tag is the little label on the right */
+    lead: "The whole set, 26 songs. Filter by genre to see the shape of a night with us.",
+    /* Genres are assigned per song and drive both the filter chips and the
+       colour of each row. `initialCount` is how many show before the
+       "show everything" button; set it to 0 to always show the lot. */
+    initialCount: 12,
     songs: [
-      { title: "Yellow",              by: "Coldplay",              language: "English", tag: "Pop rock",    note: "Almost always our opener." },
-      { title: "Fix You",             by: "Coldplay",              language: "English", tag: "Anthem",      note: "The whole room sings the last chorus." },
-      { title: "Sultans of Swing",    by: "Dire Straits",          language: "English", tag: "Classic" },
-      { title: "Socha Hai",           by: "Rock On!!",             language: "Hindi",   tag: "Bollywood" },
-      { title: "Kun Faya Kun",        by: "A.R. Rahman",           language: "Hindi",   tag: "Bollywood",   note: "Stretched long and slow when the room is right." },
-      { title: "Choo Lo",             by: "The Local Train",       language: "Hindi",   tag: "Indie" },
-      { title: "Khoya",               by: "The Yellow Diary",      language: "Hindi",   tag: "Indie" },
-      { title: "Kasoor",              by: "Prateek Kuhad",         language: "Hindi",   tag: "Indie" },
-      { title: "Neene Modalu",        by: "Kannada favourite",     language: "Kannada", tag: "Local" },
-      { title: "Anisuthide",          by: "Mungaru Male",          language: "Kannada", tag: "Local",       note: "The one that gets phones in the air." },
-      { title: "Belageddu",           by: "Kirik Party",           language: "Kannada", tag: "Local" },
+      { title: "Naina Da Kya Kasoor", genre: "Bollywood" },
+      { title: "With You", genre: "Punjabi Party" },
+      { title: "Watermelon Sugar", genre: "Pop" },
+      { title: "Ninnindale", genre: "Kannada" },
+      { title: "Jiyein Kyun", genre: "Hindi Indie" },
+      { title: "Jackie Jackie", genre: "Kannada" },
+      { title: "Badtameez Dil", genre: "Bollywood" },
+      { title: "A Sky Full of Stars", genre: "BritPop" },
+      { title: "Dil Chahta Hai", genre: "Bollywood" },
+      { title: "Socha Hai", genre: "Rock" },
+      { title: "Blinding Lights", genre: "Pop" },
+      { title: "I Want It That Way", genre: "Pop" },
+      { title: "Khali Quarter", genre: "Punjabi Party" },
+      { title: "Kannada Mashup", genre: "Kannada" },  // medley: Ee Tanuvu Ninnade / Belageddu / Sakkatagavle / Bari Olu
+      { title: "Urvashi", genre: "Bollywood" },
+      { title: "Cold/Mess", genre: "Hindi Indie" },
+      { title: "Marz", genre: "Hindi Indie" },
+      { title: "Bandey", genre: "Rock" },
+      { title: "Zakir", genre: "Sufi" },
+      { title: "Husn / Passenger", genre: "Hindi Indie" },
+      { title: "For a Reason", genre: "Pop" },
+      { title: "Pehli Baar", genre: "Bollywood" },
+      { title: "Yellow", genre: "BritPop" },
+      { title: "Saiyaara", genre: "Bollywood" },
+      { title: "Iraday", genre: "Sufi" },
+      { title: "Khat", genre: "Hindi Indie" },
     ],
   },
 
@@ -191,9 +213,13 @@ export const site = {
   book: {
     title: "Book Project Optic",
     lead: "Cafés, college fests, weddings, corporate evenings and house gigs across Bangalore and beyond.",
-    email: "hello@projectoptic.in",
+    /* Both are optional. A button only appears once its value is filled in,
+       so nothing here ever points somewhere real-looking but wrong. */
+    email: "",                              // e.g. "bookings@projectoptic.in"
+    /* Country code + number, digits only — no +, spaces or dashes.
+       An Indian mobile 98765 43210 becomes "919876543210". */
+    whatsapp: "",
     emailSubject: "Booking Project Optic",
-    whatsapp: "919999999999",               // country code + number, digits only
     whatsappText: "Hi Project Optic! We'd like to book you for an event.",
   },
 

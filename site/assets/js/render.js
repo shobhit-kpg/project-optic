@@ -195,56 +195,76 @@ export function renderSetlist(mount, site) {
   const s = site.setlist;
   if (!s?.songs?.length) return mount.remove();
 
-  const languages = [...new Set(s.songs.map((song) => song.language))];
+  const genres = [...new Set(s.songs.map((song) => song.genre))];
   const list  = el("div", { class: "setlist" });
   const count = el("p", { class: "setlist__count", role: "status" });
 
   const rows = s.songs.map((song, i) =>
-    el("article", { class: "song", style: { "--accent": accent(languages.indexOf(song.language)) }, "data-language": song.language },
+    el("article", {
+      class: "song",
+      style: { "--accent": accent(genres.indexOf(song.genre)) },
+      "data-genre": song.genre,
+    },
       el("span", { class: "song__index", text: String(i + 1).padStart(2, "0"), "aria-hidden": "true" }),
       el("div", {},
         el("h3", { class: "song__title", text: song.title }),
-        el("p",  { class: "song__by", text: song.by }),
+        /* `by` is optional: most rows are title and genre alone. */
+        song.by ? el("p", { class: "song__by", text: song.by }) : null,
         song.note ? el("p", { class: "song__note", text: song.note }) : null,
       ),
       el("div", { class: "song__meta" },
-        el("span", { class: "chip", text: song.language }),
-        song.tag ? el("span", { class: "chip", text: song.tag }) : null,
+        el("span", { class: "chip", text: song.genre }),
       ),
     )
   );
   list.append(...rows);
 
-  /* --- language filter --- */
+  /* --- genre filter --- */
   let active = "All";
-  const filters = ["All", ...languages];
-  const chips = filters.map((label) =>
+  let expanded = !s.initialCount;
+
+  const chips = ["All", ...genres].map((label) =>
     el("button", {
       class: "chip chip--toggle",
       type: "button",
       text: label,
       "aria-pressed": String(label === active),
-      onclick: () => { active = label; apply(); },
+      onclick: () => { active = label; expanded = true; apply(); },
     })
   );
 
+  /* A full set is a long list. Show a slice until asked for the rest, so the
+     section does not push everything below it off the page. */
+  const more = el("button", {
+    class: "btn btn--ghost setlist__more",
+    type: "button",
+    onclick: () => { expanded = true; apply(); more.blur(); },
+  });
+
   function apply() {
     chips.forEach((c) => c.setAttribute("aria-pressed", String(c.textContent === active)));
-    let shown = 0;
-    rows.forEach((row) => {
-      const match = active === "All" || row.dataset.language === active;
-      row.hidden = !match;
-      if (match) shown++;
-    });
-    count.textContent = `Showing ${shown} of ${s.songs.length} songs`;
+
+    const matching = rows.filter((row) => active === "All" || row.dataset.genre === active);
+    const limit = expanded ? matching.length : Math.min(s.initialCount, matching.length);
+
+    rows.forEach((row) => { row.hidden = true; });
+    matching.slice(0, limit).forEach((row) => { row.hidden = false; });
+
+    const hiddenCount = matching.length - limit;
+    more.hidden = hiddenCount <= 0;
+    more.textContent = `Show all ${matching.length} songs`;
+
+    count.textContent = active === "All"
+      ? `Showing ${limit} of ${s.songs.length} songs`
+      : `${matching.length} ${active} song${matching.length === 1 ? "" : "s"} of ${s.songs.length}`;
   }
 
   mount.append(
     el("div", { class: "wrap" },
       sectionHead(s),
-      el("div", { class: "chip-row setlist__filter", role: "group", "aria-label": "Filter songs by language" }, ...chips),
+      el("div", { class: "chip-row setlist__filter", role: "group", "aria-label": "Filter songs by genre" }, ...chips),
       list,
-      count,
+      el("div", { class: "setlist__foot" }, more, count),
     ),
   );
   apply();
@@ -364,18 +384,34 @@ export function renderListen(mount, site) {
 
 export function renderBook(mount, site) {
   const b = site.book;
-  const mailto = `mailto:${b.email}?subject=${encodeURIComponent(b.emailSubject)}`;
-  const wa = `https://wa.me/${b.whatsapp}?text=${encodeURIComponent(b.whatsappText)}`;
+
+  /* A contact button is only rendered once there is something real behind it.
+     A placeholder WhatsApp number would still be a valid link — it would just
+     send strangers to whoever actually owns it. */
+  const actions = [];
+  if (b.email) {
+    actions.push(button({
+      label: "Email us",
+      href: `mailto:${b.email}?subject=${encodeURIComponent(b.emailSubject)}`,
+      style: "primary",
+    }));
+  }
+  if (b.whatsapp) {
+    actions.push(button({
+      label: "Message on WhatsApp",
+      href: `https://wa.me/${b.whatsapp}?text=${encodeURIComponent(b.whatsappText)}`,
+      style: "accent",
+      target: "_blank",
+      rel: "noopener",
+    }));
+  }
 
   mount.append(
     el("div", { class: "wrap" },
       el("div", { class: "book" },
         el("h2", { class: "section__title", text: b.title }),
         el("p",  { class: "book__lead", text: b.lead }),
-        el("div", { class: "btn-row" },
-          button({ label: "Email us", href: mailto, style: "primary" }),
-          button({ label: "Message on WhatsApp", href: wa, style: "accent", target: "_blank", rel: "noopener" }),
-        ),
+        actions.length ? el("div", { class: "btn-row" }, ...actions) : null,
       ),
     ),
   );

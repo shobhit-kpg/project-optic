@@ -242,7 +242,15 @@
 .song[hidden] { display: none; }
 
 .setlist__filter { margin-bottom: var(--s-5); }
-.setlist__count  { color: var(--c-muted); font-size: var(--t-sm); margin-top: var(--s-4); }
+.setlist__count  { color: var(--c-muted); font-size: var(--t-sm); }
+.setlist__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-4);
+  margin-top: var(--s-5);
+}
+.setlist__more[hidden] { display: none; }
 
 @media (max-width: 680px) {
   .song { grid-template-columns: auto 1fr; }
