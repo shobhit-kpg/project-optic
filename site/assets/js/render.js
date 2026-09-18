@@ -173,17 +173,20 @@ export function renderAbout(mount, site) {
             ),
           ),
         ),
-        el("div", { class: "members" },
-          ...a.members.map((m, i) =>
-            el("div", { class: "card card--spine card--lift member", style: { "--accent": accent(i) } },
-              el("div", { class: "avatar", "aria-hidden": "true", text: m.emoji }),
-              el("div", {},
-                el("h3", { class: "member__name", text: m.name }),
-                el("p",  { class: "member__role", text: m.role }),
+        a.lineup?.length
+          ? el("div", { class: "lineup" },
+              a.lineupTitle ? el("h3", { class: "lineup__title", text: a.lineupTitle }) : null,
+              el("ul", { class: "lineup__list" },
+                ...a.lineup.map((instrument, i) =>
+                  el("li", {
+                    class: "lineup__item",
+                    style: { "--accent": accent(i) },
+                    text: instrument,
+                  })
+                ),
               ),
             )
-          ),
-        ),
+          : null,
       ),
     ),
   );
@@ -199,10 +202,6 @@ export function renderRepertoire(mount, site) {
     el("article", { class: "genre card card--spine card--lift", style: { "--accent": accent(i) } },
       el("h3", { class: "genre__name", text: g.name }),
       g.vibe ? el("p", { class: "genre__vibe", text: g.vibe }) : null,
-      g.artists?.length
-        ? el("ul", { class: "genre__artists" },
-            ...g.artists.map((a) => el("li", { class: "chip genre__artist", text: a })))
-        : null,
     )
   );
 
@@ -210,7 +209,6 @@ export function renderRepertoire(mount, site) {
     el("div", { class: "wrap" },
       sectionHead(r),
       el("div", { class: "genres" }, ...cards),
-      r.note ? el("p", { class: "genres__note", text: r.note }) : null,
     ),
   );
 }

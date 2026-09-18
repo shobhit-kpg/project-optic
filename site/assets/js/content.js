@@ -116,19 +116,23 @@ export const site = {
   /* --- about ----------------------------------------------------------- */
   about: {
     kicker: "Who we are",
-    title: "One band, eight kinds of night",
+    title: "One band, seven kinds of night",
     body: [
-      "Project Optic is a Bangalore band built around a deliberately wide set: **Punjabi party** starters, **Hindi indie** for the quiet middle, **Bollywood** everyone already knows the words to, **rock** and **BritPop** for the big choruses, **Sufi** for when the room goes still, and the **Kannada** songs our city sings back at us.",
-      "One set, eight kinds of night. We read the room and pick the lens.",
+      "Project Optic is a Bangalore band built around a deliberately wide set: **Punjabi party** starters, **Hindi indie** for the quiet middle, **Bollywood** everyone already knows the words to, **rock** and **BritPop** for the big choruses, **pop** that works anywhere in an evening, and the **Kannada** songs our city sings back at us.",
+      "One set, seven kinds of night. We read the room and pick the lens.",
     ],
     tags: ["Punjabi Party", "Hindi Indie", "Bollywood", "Rock", "BritPop", "Kannada", "Pop"],
-    /* The photos show a five-piece. Put the real names and instruments here. */
-    members: [
-      { name: "Name",  role: "Vocals",       emoji: "🎤" },
-      { name: "Name",  role: "Guitar",       emoji: "🎸" },
-      { name: "Name",  role: "Guitar",       emoji: "🎸" },
-      { name: "Name",  role: "Bass",         emoji: "🎻" },
-      { name: "Name",  role: "Drums",        emoji: "🥁" },
+    /* The band by what it puts on stage rather than by name. This is also
+       what a venue needs from you early: how many channels, how much room,
+       how much backline. */
+    lineupTitle: "Six layers on stage",
+    lineup: [
+      "Vocals",
+      "Rhythm Guitar",
+      "Lead Guitar",
+      "Keyboard / Synth",
+      "Bass Guitar",
+      "Drums",
     ],
   },
 
@@ -145,41 +149,32 @@ export const site = {
       {
         name: "Punjabi Party",
         vibe: "The last hour. Everyone is up, and nobody sits back down.",
-        artists: ["AP Dhillon", "Karan Aujla"],
       },
       {
         name: "Bollywood",
         vibe: "The songs the whole room already knows every word to.",
-        artists: ["A.R. Rahman", "Pritam", "Shankar–Ehsaan–Loy", "Amit Trivedi"],
       },
       {
         name: "Hindi Indie",
         vibe: "The quiet middle. Lights down, phones down.",
-        artists: ["Prateek Kuhad", "Anuv Jain", "Papon"],
       },
       {
         name: "Rock",
         vibe: "The loudest stretch of the night. Big guitars, bigger choruses.",
-        artists: ["Linkin Park", "Red Hot Chili Peppers", "Indian Ocean"],
       },
       {
         name: "BritPop",
         vibe: "Arms round shoulders, the whole room on the same line.",
-        artists: ["Coldplay"],
       },
       {
         name: "Kannada",
         vibe: "Home ground. Bangalore sings this one back at us.",
-        artists: ["Kannada film favourites", "Sandalwood classics"],
       },
       {
         name: "Pop",
         vibe: "Bright and familiar. Works anywhere in the evening.",
-        artists: ["The Weeknd", "Imagine Dragons", "Harry Styles", "Backstreet Boys", "Passenger"],
       },
     ],
-    /* Shown under the cards. Keeps the door open without publishing a set. */
-    note: "Requests welcome — tell us the room and we will build the night around it.",
   },
 
   /* --- videos ---------------------------------------------------------- */
