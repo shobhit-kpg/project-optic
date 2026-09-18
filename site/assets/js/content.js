@@ -39,8 +39,10 @@ export const site = {
       { label: "Watch us play", href: "#videos", style: "primary" },
       { label: "Book a show",   href: "#book",   style: "ghost" },
     ],
-    /* Real photos, graded to a single cinematic look so five nights under
-       blue, yellow, red and magenta lighting read as one band.
+    /* Real photos, graded with tools/grade-photos.py: blacks crushed, colour
+       pushed. Five nights under blue, purple, red, yellow and magenta light
+       hang together because they are all dark and saturated, not because
+       their colours were flattened to match.
 
        `srcset` lets the browser pick a size: phones pull the 1400px file,
        laptops the 2400px one. `focus` is the object-position, i.e. the part
