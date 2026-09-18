@@ -111,7 +111,7 @@ export const site = {
   },
 
   /* --- the strip that scrolls under the hero --------------------------- */
-  marquee: ["Punjabi Party", "Hindi Indie", "Bollywood", "Rock", "BritPop", "Sufi", "Kannada", "Pop"],
+  marquee: ["Punjabi Party", "Hindi Indie", "Bollywood", "Rock", "BritPop", "Kannada", "Pop"],
 
   /* --- about ----------------------------------------------------------- */
   about: {
@@ -121,7 +121,7 @@ export const site = {
       "Project Optic is a Bangalore band built around a deliberately wide set: **Punjabi party** starters, **Hindi indie** for the quiet middle, **Bollywood** everyone already knows the words to, **rock** and **BritPop** for the big choruses, **Sufi** for when the room goes still, and the **Kannada** songs our city sings back at us.",
       "One set, eight kinds of night. We read the room and pick the lens.",
     ],
-    tags: ["Punjabi Party", "Hindi Indie", "Bollywood", "Rock", "BritPop", "Sufi", "Kannada", "Pop"],
+    tags: ["Punjabi Party", "Hindi Indie", "Bollywood", "Rock", "BritPop", "Kannada", "Pop"],
     /* The photos show a five-piece. Put the real names and instruments here. */
     members: [
       { name: "Name",  role: "Vocals",       emoji: "🎤" },
