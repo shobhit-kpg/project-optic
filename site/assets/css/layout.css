@@ -10,10 +10,19 @@
 
 /* --- section rhythm ----------------------------------------------------- */
 .section { padding-block: var(--s-section); position: relative; }
-.section--tight { padding-block: calc(var(--s-section) * 0.55); }
+.section--tight { padding-block: calc(var(--s-section) * 0.72); }
 
-/* Alternating tint, so neighbouring sections separate without hard rules. */
-.section--tint { background: var(--c-surface); }
+/* Alternating tint, worked out from position rather than hand-tagged. A
+   section removes itself when its content is empty, and hand-applied classes
+   drifted out of step every time one did — three untinted blocks ended up
+   stacked at the foot of the page. nth-of-type re-alternates over whatever
+   actually rendered. */
+main > section:nth-of-type(even) { background: var(--c-section-tint); }
+
+/* A hairline between neighbours as well as the tint. On a wide screen the
+   tint alone is enough; on a phone, where everything is one column and the
+   eye has no other structure to read, the edge does the work. */
+main > section + section { border-top: var(--border); }
 
 .section__head {
   display: flex;
@@ -22,6 +31,14 @@
   justify-content: space-between;
   gap: var(--s-4);
   margin-bottom: var(--s-6);
+}
+
+@media (max-width: 720px) {
+  /* One column means every block is the full width, so they need more air
+     between them and a clearer gap under each heading than on desktop. */
+  .section__head { margin-bottom: var(--s-7); }
+  .section__lead { margin-top: var(--s-4); }
+  .kicker { margin-bottom: var(--s-4); }
 }
 .section__title { font-size: var(--t-3xl); text-transform: uppercase; }
 .section__lead  { color: var(--c-muted); font-size: var(--t-lg); max-width: var(--w-prose); margin-top: var(--s-3); }

@@ -71,9 +71,17 @@
   --s-7: 3rem;
   --s-8: 4rem;
 
-  /* vertical rhythm between major sections, and the page side gutter */
-  --s-section: clamp(4rem, 9vw, 7.5rem);
+  /* vertical rhythm between major sections, and the page side gutter.
+     The floor matters most: on a phone 9vw is only ~35px, so the clamp
+     minimum is what actually separates one section from the next. */
+  --s-section: clamp(5rem, 9vw, 7.5rem);
   --s-gutter:  clamp(1.25rem, 4vw, 3rem);
+
+  /* The alternating section wash. Translucent rather than opaque so the
+     grain backdrop still shows through; strong enough to read as a change
+     of surface on a small screen, where the section edge is the only cue
+     that one block has ended and another has begun. */
+  --c-section-tint: color-mix(in srgb, var(--c-bg-2) 78%, transparent);
 
   /* --- measure -------------------------------------------------------- */
   --w-page:  1180px;
