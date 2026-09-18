@@ -191,11 +191,10 @@ export const site = {
     title: "Upcoming shows",
     lead: "Come say hello. Dates are added as they're confirmed.",
     emptyText: "No dates announced yet — check back soon.",
-    items: [
-      { date: "2026-10-04", venue: "Fandom at Gilly's Redefined", where: "Koramangala, Bangalore", ticket: "" },
-      { date: "2026-10-19", venue: "The Humming Tree",            where: "Indiranagar, Bangalore", ticket: "" },
-      { date: "2026-11-08", venue: "Bhoomi College Fest",         where: "Sarjapura Road",         ticket: "" },
-    ],
+    /* No dates announced. The section shows `emptyText` while this is empty.
+       To drop the section entirely instead, set `shows: null` — the nav link
+       to it removes itself automatically. */
+    items: [],
   },
 
   /* --- listen ---------------------------------------------------------- */

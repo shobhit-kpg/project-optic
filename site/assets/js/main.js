@@ -44,6 +44,14 @@ for (const [selector, fn] of SECTIONS) {
 const carousel = $("[data-carousel]");
 if (carousel) initCarousel(carousel, { intervalMs: site.hero.autoplayMs });
 
+/* --- 3b. prune nav links whose section did not render -------------------- */
+/* Sections remove themselves when their content is empty, so a link left
+   pointing at a missing id would simply do nothing when clicked. */
+for (const link of $$(".nav__link[href^='#']")) {
+  const id = link.getAttribute("href");
+  if (id.length > 1 && !$(id)) link.remove();
+}
+
 /* --- 4. sticky nav ------------------------------------------------------ */
 const nav = $("#nav");
 const sentinel = $("#top");
