@@ -215,10 +215,10 @@ export const site = {
     lead: "Cafés, college fests, weddings, corporate evenings and house gigs across Bangalore and beyond.",
     /* Both are optional. A button only appears once its value is filled in,
        so nothing here ever points somewhere real-looking but wrong. */
-    email: "",                              // e.g. "bookings@projectoptic.in"
+    email: "gj.bhuvankumar@gmail.com",
     /* Country code + number, digits only — no +, spaces or dashes.
-       An Indian mobile 98765 43210 becomes "919876543210". */
-    whatsapp: "",
+       91 is India, so the mobile 99105 89582 becomes "919910589582". */
+    whatsapp: "919910589582",
     emailSubject: "Booking Project Optic",
     whatsappText: "Hi Project Optic! We'd like to book you for an event.",
   },
