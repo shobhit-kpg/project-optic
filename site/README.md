@@ -71,13 +71,18 @@ page without touching any component.
 originals. Each exists at several widths and the page picks one via `srcset`:
 a phone pulls the 1400px file, a retina laptop the 3200px one.
 
-**The grade** crushes the blacks and pushes the colour, so every frame is dark
-and saturated. The set is unified by tonality while each night keeps its own
-light — the blue room stays blue, Hard Rock stays magenta. An earlier attempt
-unified by *hue* instead, desaturating everything toward the palette, and it
-drained exactly what made the photos good: a deep blue room came out grey.
-Worth remembering before reaching for `autocontrast`, which lifts the black
-point and is the opposite of what a gig photo wants.
+**The grade** is high-contrast black and white — the classic language of gig
+photography, and what silhouettes against stage lights are made for. It solves
+the problem the colour grades kept failing at: five nights under blue, purple,
+red, yellow and magenta lighting need no reconciling once there are no colours
+left to clash. It also leaves the brand's signal red as the only colour
+anywhere on the page.
+
+Two colour grades were tried and dropped first. One desaturated everything
+toward the palette and ran `autocontrast` over it, which *lifts* the black
+point — a deep blue room came out milky grey. The other crushed the blacks and
+pushed saturation hard, which kept the drama but stayed garish. Worth knowing
+before reaching for either again.
 
 ### Adding a photo
 
@@ -90,8 +95,12 @@ and prints the block to paste into `hero.slides` in `content.js`. For a
 **portrait** original, pass a landscape crop rather than letting CSS do it:
 
 ```bash
-python3 tools/grade-photos.py live-06 ~/Downloads/tall.JPG --crop 0,0.34,1,0.90
+python3 tools/grade-photos.py live-06 ~/Downloads/tall.JPG --crop 0,0.28,1,0.665
 ```
+
+Pick the band by eye first. The crop that is obviously "the middle" usually is
+not: on a standing figure the middle of the frame is the waist, so a centred
+crop gives you torsos and no faces. Aim high.
 
 ### What makes a good source
 
@@ -117,13 +126,13 @@ Three tokens in `tokens.css` grade every photo at once:
 
 | Token              | Does                                                    |
 |--------------------|---------------------------------------------------------|
-| `--photo-filter`   | Fine-tuning on top of the baked grade. Leave brightness alone — lifting it undoes the crushed blacks. |
-| `--grade-strength` | The palette wash. Kept low (0.22) so each night keeps its colour. `0` = off. |
+| `--photo-filter`   | Fine-tuning on top of the baked grade. `saturate()` has nothing to act on now; leave brightness at 1 or it undoes the crushed blacks. |
+| `--grade-strength` | A whisper of the palette over the greys, tying them to the page. `0` = pure neutral black and white. |
 | `--drift-duration` | Speed of the slow zoom. Longer is calmer.                |
 
 The grade itself lives in `tools/grade-photos.py` as four constants
-(`BLACK_POINT`, `SATURATION`, `CONTRAST`, `VIGNETTE`). Change them and re-run
-the script over the originals to restyle the whole set.
+(`BLACK_POINT`, `GAMMA`, `CONTRAST`, `VIGNETTE`). Change them and re-run the
+script over the originals to restyle the whole set.
 
 ## Themes
 

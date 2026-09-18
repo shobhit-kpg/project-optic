@@ -39,10 +39,10 @@ export const site = {
       { label: "Watch us play", href: "#videos", style: "primary" },
       { label: "Book a show",   href: "#book",   style: "ghost" },
     ],
-    /* Real photos, graded with tools/grade-photos.py: blacks crushed, colour
-       pushed. Five nights under blue, purple, red, yellow and magenta light
-       hang together because they are all dark and saturated, not because
-       their colours were flattened to match.
+    /* Real photos, graded with tools/grade-photos.py to high-contrast black
+       and white. Five nights under five different lighting rigs need no
+       reconciling once there are no colours left to clash, and the brand's
+       red is then the only colour on the page.
 
        `srcset` lets the browser pick a size: phones pull the 1400px file,
        laptops the 2400px one. `focus` is the object-position, i.e. the part
@@ -65,7 +65,7 @@ export const site = {
         srcset: "assets/img/live-02-1400.jpg 1400w, assets/img/live-02-2400.jpg 2400w, assets/img/live-02-3200.jpg 3200w",
         alt: "Two singers at their mics, lit from behind",
         caption: "Two mics, one spotlight",
-        focus: "68% 50%",
+        focus: "50% 45%",
       },
       {
         src: "assets/img/live-03-2400.jpg",

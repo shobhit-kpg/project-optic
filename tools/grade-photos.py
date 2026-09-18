@@ -2,10 +2,11 @@
 """Grade and resize live photos for the hero carousel.
 
 The photos come off several nights, several phones and several lighting rigs.
-Rather than repaint their colours to match — which drains exactly what makes a
-gig photo good — this crushes the blacks and pushes the colour, so every frame
-becomes dark and saturated. The set is unified by tonality while each night
-keeps its own light. It then writes the responsive sizes `srcset` asks for.
+This converts them to high-contrast black and white — the classic language of
+gig photography, and what silhouettes against stage lights are made for. It
+unifies the set for free, because there are no colours left to clash, and it
+leaves the brand's signal red as the only colour on the page. It then writes
+the responsive sizes `srcset` asks for.
 
 Usage:
     python3 tools/grade-photos.py live-06 ~/Downloads/new-gig.JPG
@@ -23,7 +24,7 @@ import os
 import sys
 
 try:
-    from PIL import Image, ImageEnhance, ImageFilter, ImageDraw
+    from PIL import Image, ImageOps, ImageEnhance, ImageFilter, ImageDraw
 except ImportError:
     sys.exit("Pillow is not installed. See the docstring at the top of this file.")
 
@@ -32,13 +33,12 @@ OUT_DIR = os.path.join(os.path.dirname(__file__), "..", "site", "assets", "img")
 # width -> jpeg quality. Bigger files trade bits per pixel for pixels.
 SIZES = {1400: 82, 2400: 82, 3200: 76}
 
-# The grade, in one place. Raise SATURATION for more colour, BLACK_POINT for
-# deeper shadows. Both are also tunable live from tokens.css (--photo-filter).
-BLACK_POINT = 44     # how far the shadows are pulled down, 0-255
-GAMMA       = 1.02
-SATURATION  = 1.42
-CONTRAST    = 1.20
+# The grade, in one place.
+BLACK_POINT = 26     # how far the shadows are pulled down, 0-255
+GAMMA       = 1.06   # >1 darkens the midtones
+CONTRAST    = 1.22
 VIGNETTE    = 0.30
+AUTO_CUTOFF = (0.5, 1)   # percent clipped off each end before the tone curve
 
 
 def vignette(im, strength=VIGNETTE):
@@ -64,10 +64,16 @@ def deepen(im, black=BLACK_POINT, gamma=GAMMA):
 
 
 def grade(im):
-    im = deepen(im)
-    im = ImageEnhance.Color(im).enhance(SATURATION)
-    im = ImageEnhance.Contrast(im).enhance(CONTRAST)
-    return vignette(im)
+    """Colour -> high-contrast monochrome.
+
+    autocontrast is safe here in a way it was not for the colour grades: it is
+    spreading the tonal range before the curve pulls the shadows back down,
+    rather than being the last word on exposure.
+    """
+    grey = ImageOps.autocontrast(im.convert("L"), cutoff=AUTO_CUTOFF)
+    grey = deepen(grey.convert("RGB"))
+    grey = ImageEnhance.Contrast(grey).enhance(CONTRAST)
+    return vignette(grey)
 
 
 def main():
