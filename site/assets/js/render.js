@@ -205,10 +205,35 @@ export function renderRepertoire(mount, site) {
     )
   );
 
+  /* Each name carries its own trailing separator, so a wrapped line never
+     begins with a stranded dot, and the name span is nowrap so multi-part
+     names do not split at their hyphens.
+
+     That leaves the only spaces inside nowrap elements, which removes every
+     break opportunity and makes the whole list one unbreakable line — hence
+     the explicit <wbr> between names. */
+  const artists = r.artists?.names?.length
+    ? el("div", { class: "artists" },
+        r.artists.label ? el("h3", { class: "artists__label", text: r.artists.label }) : null,
+        el("p", { class: "artists__names" },
+          ...r.artists.names.flatMap((name, i) => {
+            const last = i === r.artists.names.length - 1;
+            const span = el("span", { class: "artists__name" },
+              name,
+              last ? null : el("span", { class: "artists__sep", text: " · " }),
+            );
+            return last ? [span] : [span, el("wbr")];
+          }),
+          r.artists.tail ? el("span", { class: "artists__tail", text: ` — ${r.artists.tail}` }) : null,
+        ),
+      )
+    : null;
+
   mount.append(
     el("div", { class: "wrap" },
       sectionHead(r),
       el("div", { class: "genres" }, ...cards),
+      artists,
     ),
   );
 }

@@ -175,6 +175,33 @@ export const site = {
         vibe: "Bright and familiar. Works anywhere in the evening.",
       },
     ],
+    /* One indicative dump under the cards rather than a list per genre: it
+       gives a booker the flavour without reading as a fixed repertoire.
+       Deliberately mixed rather than grouped, so it scans as range. */
+    artists: {
+      label: "Indicative — a flavour of who we pull from",
+      names: [
+        "Coldplay",
+        "A.R. Rahman",
+        "AP Dhillon",
+        "Linkin Park",
+        "Prateek Kuhad",
+        "The Weeknd",
+        "Karan Aujla",
+        "Pritam",
+        "Imagine Dragons",
+        "Anuv Jain",
+        "Red Hot Chili Peppers",
+        "Shankar–Ehsaan–Loy",
+        "Harry Styles",
+        "Indian Ocean",
+        "Amit Trivedi",
+        "Backstreet Boys",
+        "Papon",
+        "Passenger",
+      ],
+      tail: "and plenty more, depending on the room.",
+    },
   },
 
   /* --- videos ---------------------------------------------------------- */

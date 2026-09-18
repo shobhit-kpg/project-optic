@@ -252,6 +252,36 @@
   line-height: 1.5;
 }
 
+.artists {
+  margin-top: var(--s-6);
+  padding-top: var(--s-5);
+  border-top: var(--border);
+}
+.artists__label {
+  font-family: var(--f-body);
+  font-size: var(--t-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wide);
+  text-transform: uppercase;
+  color: var(--c-muted);
+  margin-bottom: var(--s-3);
+}
+.artists__names {
+  font-family: var(--f-display);
+  font-size: var(--t-lg);
+  line-height: 1.55;
+  color: var(--c-text);
+  max-width: 68ch;
+}
+/* Keep a name whole: "Shankar–Ehsaan–Loy" otherwise breaks at its hyphens. */
+.artists__name { white-space: nowrap; }
+.artists__sep  { color: var(--c-accent-1); }
+.artists__tail {
+  font-family: var(--f-body);
+  font-size: var(--t-base);
+  color: var(--c-muted);
+}
+
 /* ==========================================================================
    4. VIDEOS — click-to-play, so no YouTube weight until asked for
    ========================================================================== */
